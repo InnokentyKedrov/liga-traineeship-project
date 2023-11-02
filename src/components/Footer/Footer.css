@@ -1,0 +1,45 @@
+.footer {
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+
+  height: 5rem;
+
+  background: #000;
+}
+
+.footer__link,
+.footer__year {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.footer__link {
+  text-decoration: none;
+  padding-left: 3rem;
+  background-image: url('../../assets/icons/github.png');
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 2rem 2rem;
+  transition: transform 0.4s ease-in-out;
+}
+
+.footer__link:hover {
+  cursor: pointer;
+  color: #fff;
+
+  transform: scale(1.2);
+}
+
+.footer__link:active {
+  transform: scale(1);
+}
+
+.footer__year {
+  margin: 0;
+}
