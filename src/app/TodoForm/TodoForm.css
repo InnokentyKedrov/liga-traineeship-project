@@ -1,0 +1,53 @@
+.form {
+  padding: 1rem;
+  max-width: 19rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+  background-color: var(--third-color);
+  border-radius: 0.75rem;
+}
+
+.form__fieldset {
+  margin-bottom: 1rem;
+}
+
+.form__area {
+  width: 100%;
+}
+
+.form__check {
+  display: flex;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.form__label {
+  font-size: 1.25rem;
+}
+
+.check__input {
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  margin-right: 0.75rem;
+}
+
+.form__btn {
+  align-self: center;
+  width: 9rem;
+  background-color: rgba(255, 255, 255, 50%);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 1.25rem;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 50%);
+  border-radius: 0.5rem;
+  transition: all 0.4s ease-in-out;
+}
+
+.form__btn:hover {
+  background-color: rgba(255, 255, 255, 90%);
+  color: rgba(0, 0, 0, 30%);
+  border-color: rgba(255, 255, 255, 90%);
+}

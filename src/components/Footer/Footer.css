@@ -10,7 +10,7 @@
 
   height: 5rem;
 
-  background: #000;
+  background: var(--main-color);
 }
 
 .footer__link,

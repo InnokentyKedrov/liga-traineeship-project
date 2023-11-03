@@ -1,0 +1,18 @@
+.task {
+  background-color: var(--third-color);
+  padding: 20px;
+  border-radius: 0.75rem;
+}
+
+.task_important {
+  border: 2px solid rgba(255, 255, 255, 50%);
+}
+
+.task__title {
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.task__info {
+  color: rgba(255, 255, 255, 50%);
+}
