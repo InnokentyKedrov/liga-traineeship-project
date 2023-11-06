@@ -52,13 +52,11 @@ const TodoForm = () => {
   };
 
   const importantChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    event.preventDefault();
     if (event.target.value === 'Important task.') setIsImportant(true);
     else setIsImportant(false);
   };
 
   const complitedChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    event.preventDefault();
     if (event.target.value === 'Complited task.') setIsComplited(true);
     else setIsComplited(false);
   };
@@ -70,7 +68,6 @@ const TodoForm = () => {
         <input
           className="form__area"
           name="name"
-          id="name"
           onChange={inputChange}
           defaultValue={state.currentTask ? state.currentTask.name : ''}
           required></input>
@@ -81,7 +78,6 @@ const TodoForm = () => {
         <textarea
           className="form__area"
           name="description"
-          id="description"
           rows={3}
           onChange={areaChange}
           defaultValue={state.currentTask ? state.currentTask.info : ''}
@@ -112,8 +108,8 @@ const TodoForm = () => {
             name="important"
             id="unimportant"
             value="Unimportant task."
-            defaultChecked={!state.currentTask?.isImportant}
             onChange={importantChange}
+            defaultChecked={!state.currentTask?.isImportant}
           />
           <label className="check__label" htmlFor="unimportant">
             Unimportant task
