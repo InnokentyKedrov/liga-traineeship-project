@@ -1,52 +1,69 @@
 .todos__list {
-  margin: 0;
-  list-style-type: none;
+  overflow: hidden;
   display: flex;
   justify-content: space-around;
+
+  height: 100%;
+  margin: 0;
+
+  list-style-type: none;
 }
 
 .todos__item {
   width: 19rem;
-  background-color: var(--second-color);
-  border-radius: 0.75rem;
+  height: 100%;
   padding: 1.5rem 1rem;
+
+  background-color: var(--main-color);
+  border-radius: 0.75rem;
 }
 
 .item__head {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 1rem;
+
+  font-size: 0.9rem;
 }
 
 .item__title {
-  color: rgba(255, 255, 255, 50%);
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgb(255 255 255 / 50%);
 }
 
 .item__add {
   display: flex;
-  align-items: center;
   gap: 0.5rem;
-  color: #ffffff;
+  align-items: center;
+
   line-height: 100%;
-  transition: transform 0.4s ease-in-out;
+  color: #fff;
   text-decoration: none;
+
+  transition: transform 0.4s ease-in-out;
 }
 
 .add__img {
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 1.25rem;
   height: 1.25rem;
+
+  color: rgb(255 255 255 / 40%);
+
+  background-color: rgb(255 255 255 / 10%);
   border-radius: 50%;
-  color: rgba(255, 255, 255, 40%);
-  background-color: rgba(255, 255, 255, 10%);
 }
 
 .item__add:hover {
-  transform: scale(1.2);
   cursor: pointer;
-  color: #ffffff;
+  transform: scale(1.2);
+  color: #fff;
 }
 
 .item__add:active {
@@ -54,9 +71,13 @@
 }
 
 .item__tasks {
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  height: calc(100% - 2.25rem);
   padding: 0;
+
   list-style-type: none;
 }

@@ -48,18 +48,14 @@
 .firstBlock {
   width: 2rem;
   height: 1.5rem;
-
   background-color: #eabfff;
-
   animation: moveFirst 4s linear infinite;
 }
 
 .secondBlock {
   width: 2rem;
   height: 1.5rem;
-
   background-color: #93e396;
-
   animation: moveSecond 4s linear infinite;
 }
 

@@ -27,4 +27,11 @@ export const taskArray = [
     isCompleted: true,
     id: 4,
   },
+  {
+    name: 'Task 5',
+    info: 'testtesttesttesttest',
+    isImportant: false,
+    isCompleted: false,
+    id: 5,
+  },
 ];
