@@ -1,4 +1,4 @@
-export type TodosType = {
+export type ITask = {
   name: string;
   info: string;
   isImportant: boolean;

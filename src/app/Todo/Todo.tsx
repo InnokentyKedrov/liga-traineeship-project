@@ -1,13 +1,17 @@
 import './Todo.css';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Task from 'components/Task/Task';
-import { ITask } from 'components/Task/Task.types';
 import { useAppSelector } from 'src/redux/hooks';
+import { ITask } from 'src/types/types';
 
 const Todo: React.FC = () => {
   const state = useAppSelector((state) => state);
-  const [tasks] = useState<ITask[]>(state || []);
+  const [tasks, setTasks] = useState<ITask[]>(state.tasks || []);
+
+  useEffect(() => {
+    setTasks(state.tasks);
+  }, [state.tasks]);
 
   return (
     <ul className="todos__list">
