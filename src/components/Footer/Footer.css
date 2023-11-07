@@ -45,3 +45,19 @@
 .footer__year {
   margin: 0;
 }
+
+@media (width <= 660px) {
+  .footer {
+    height: 3rem;
+    padding: 0 2rem;
+  }
+
+  .footer__link,
+  .footer__year {
+    font-size: 1rem;
+  }
+
+  .footer__link {
+    background-size: 1rem 1rem;
+  }
+}

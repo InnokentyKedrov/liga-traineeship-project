@@ -50,3 +50,9 @@ body {
   background-color: var(--main-color);
   border-radius: 0.75rem;
 }
+
+@media (width <= 750px) {
+  .main {
+    padding: 0.5rem;
+  }
+}

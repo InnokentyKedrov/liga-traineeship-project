@@ -3,3 +3,8 @@ export * from './SearchInput';
 export * from './TextField';
 export * from './Checkbox';
 export * from './Loader';
+export * from './MyLoader';
+export * from './Header';
+export * from './Footer';
+export * from './PageNotFound';
+export * from './Task';

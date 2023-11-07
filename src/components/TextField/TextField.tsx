@@ -10,9 +10,11 @@ export function TextField({
   value,
   onChange,
   errorText,
+  defaultValue,
+  required,
 }: TextFieldProps) {
   return (
-    <div className={`mb-3 ${containerClassName}`}>
+    <fieldset className={`mb-3 ${containerClassName}`}>
       <label htmlFor={label} className="form-label">
         {label}
       </label>
@@ -23,8 +25,10 @@ export function TextField({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        defaultValue={defaultValue}
+        required={required}
       />
       {errorText && <div className="invalid">{errorText}</div>}
-    </div>
+    </fieldset>
   );
 }

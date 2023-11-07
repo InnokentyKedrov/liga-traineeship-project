@@ -3,6 +3,8 @@ import './TodoForm.css';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { addCurrentTask, addTask, changeTask } from 'src/redux/slice';
+import { TextField } from 'components/TextField';
+import { Checkbox } from 'components/Checkbox';
 
 const TodoForm = () => {
   const dispatch = useAppDispatch();
@@ -41,115 +43,54 @@ const TodoForm = () => {
     navigate('/');
   };
 
-  const inputChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const nameChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
     setName(event.target.value);
   };
 
-  const areaChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => {
+  const infoChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
     setInfo(event.target.value);
   };
 
   const importantChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    if (event.target.value === 'Important task.') setIsImportant(true);
-    else setIsImportant(false);
+    setIsImportant(event.target.checked);
   };
 
   const complitedChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    if (event.target.value === 'Complited task.') setIsComplited(true);
-    else setIsComplited(false);
+    setIsComplited(event.target.checked);
   };
 
   return (
     <form className="form" onSubmit={onSubmit}>
-      <fieldset className="form__fieldset">
-        <legend className="form__label">Enter the name of your task</legend>
-        <input
-          className="form__area"
-          name="name"
-          onChange={inputChange}
-          defaultValue={state.currentTask ? state.currentTask.name : ''}
-          required></input>
-      </fieldset>
+      <TextField
+        label={'Enter the name of your task'}
+        inputType={'text'}
+        defaultValue={state.currentTask ? state.currentTask.name : ''}
+        onChange={nameChange}
+        required={true}
+      />
 
-      <fieldset className="form__fieldset">
-        <legend className="form__label">Enter the description of your task</legend>
-        <textarea
-          className="form__area"
-          name="description"
-          rows={3}
-          onChange={areaChange}
-          defaultValue={state.currentTask ? state.currentTask.info : ''}
-          required></textarea>
-      </fieldset>
+      <TextField
+        label={'Enter the description of your task'}
+        inputType={'text'}
+        defaultValue={state.currentTask ? state.currentTask.info : ''}
+        onChange={infoChange}
+        required={true}
+      />
 
-      <fieldset className="form__fieldset">
-        <legend className="form__label">Is this an important task?</legend>
-        <div className="form__check">
-          <input
-            className="check__input"
-            type="radio"
-            name="important"
-            id="important"
-            value="Important task."
-            onChange={importantChange}
-            defaultChecked={state.currentTask?.isImportant}
-            required
-          />
-          <label className="check__label" htmlFor="important">
-            Important task
-          </label>
-        </div>
-        <div className="form__check">
-          <input
-            className="check__input"
-            type="radio"
-            name="important"
-            id="unimportant"
-            value="Unimportant task."
-            onChange={importantChange}
-            defaultChecked={!state.currentTask?.isImportant}
-          />
-          <label className="check__label" htmlFor="unimportant">
-            Unimportant task
-          </label>
-        </div>
-      </fieldset>
+      <Checkbox
+        label={'Is this an important task?'}
+        defaultChecked={state.currentTask?.isImportant}
+        onChange={importantChange}
+      />
 
       {state.currentTask && (
-        <fieldset className="form__fieldset">
-          <legend className="form__label">Is this task completed?</legend>
-          <div className="form__check">
-            <input
-              className="check__input"
-              type="radio"
-              name="complited"
-              id="complited"
-              value="Complited task."
-              onChange={complitedChange}
-              defaultChecked={state.currentTask?.isCompleted}
-              required
-            />
-            <label className="check__label" htmlFor="complited">
-              Complited task
-            </label>
-          </div>
-          <div className="form__check">
-            <input
-              className="check__input"
-              type="radio"
-              name="complited"
-              id="uncomplited"
-              value="Uncomplited task."
-              onChange={complitedChange}
-              defaultChecked={!state.currentTask?.isCompleted}
-            />
-            <label className="check__label" htmlFor="uncomplited">
-              Uncomplited task
-            </label>
-          </div>
-        </fieldset>
+        <Checkbox
+          label={'Is this task completed?'}
+          defaultChecked={state.currentTask?.isCompleted}
+          onChange={complitedChange}
+        />
       )}
 
       <button type="submit" className="form__btn">

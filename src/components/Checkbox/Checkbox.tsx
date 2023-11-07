@@ -1,9 +1,17 @@
 import React from 'react';
 import { CheckboxProps } from './Checkbox.types';
+import './Checkbox.css';
 
-export function Checkbox({ label, checked, onChange, disabled, containerClassName = '' }: CheckboxProps) {
+export function Checkbox({
+  label,
+  checked,
+  onChange,
+  disabled,
+  containerClassName = '',
+  defaultChecked,
+}: CheckboxProps) {
   return (
-    <div className={`form-check mb-3 ${containerClassName}`}>
+    <fieldset className={`form-check mb-3 ${containerClassName}`}>
       <input
         className="form-check-input"
         type="checkbox"
@@ -12,10 +20,11 @@ export function Checkbox({ label, checked, onChange, disabled, containerClassNam
         disabled={disabled}
         checked={checked}
         onChange={onChange}
+        defaultChecked={defaultChecked}
       />
       <label className="form-check-label" htmlFor={label}>
         {label}
       </label>
-    </div>
+    </fieldset>
   );
 }
