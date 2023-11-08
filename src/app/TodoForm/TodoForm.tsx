@@ -6,25 +6,26 @@ import { addCurrentTask, addTask, changeTask } from 'src/redux/slice';
 import { TextField } from 'components/TextField';
 import { Checkbox } from 'components/Checkbox';
 
-const TodoForm = () => {
+const TodoForm: React.FC = () => {
   const dispatch = useAppDispatch();
-  const state = useAppSelector((state) => state);
+  const currentTask = useAppSelector((state) => state.currentTask);
+  const tasks = useAppSelector((state) => state.tasks);
   const navigate = useNavigate();
-  const [name, setName] = useState<string>(state.currentTask ? state.currentTask.name : '');
-  const [info, setInfo] = useState<string>(state.currentTask ? state.currentTask.info : '');
-  const [isImportant, setIsImportant] = useState<boolean>(state.currentTask ? state.currentTask.isImportant : false);
-  const [isComplited, setIsComplited] = useState<boolean>(state.currentTask ? state.currentTask.isCompleted : false);
+  const [name, setName] = useState<string>(currentTask ? currentTask.name : '');
+  const [info, setInfo] = useState<string>(currentTask ? currentTask.info : '');
+  const [isImportant, setIsImportant] = useState<boolean>(currentTask ? currentTask.isImportant : false);
+  const [isComplited, setIsComplited] = useState<boolean>(currentTask ? currentTask.isCompleted : false);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    if (state.currentTask) {
+    if (currentTask) {
       dispatch(
         changeTask({
           name: name,
           info: info,
           isImportant: isImportant,
           isCompleted: isComplited,
-          id: state.currentTask.id,
+          id: currentTask.id,
         })
       );
     } else {
@@ -34,7 +35,7 @@ const TodoForm = () => {
           info: info,
           isImportant: isImportant,
           isCompleted: false,
-          id: state.tasks.length + 1,
+          id: tasks.length + 1,
         })
       );
     }
@@ -66,7 +67,7 @@ const TodoForm = () => {
       <TextField
         label={'Enter the name of your task'}
         inputType={'text'}
-        defaultValue={state.currentTask ? state.currentTask.name : ''}
+        defaultValue={currentTask ? currentTask.name : ''}
         onChange={nameChange}
         required={true}
       />
@@ -74,21 +75,21 @@ const TodoForm = () => {
       <TextField
         label={'Enter the description of your task'}
         inputType={'text'}
-        defaultValue={state.currentTask ? state.currentTask.info : ''}
+        defaultValue={currentTask ? currentTask.info : ''}
         onChange={infoChange}
         required={true}
       />
 
       <Checkbox
         label={'Is this an important task?'}
-        defaultChecked={state.currentTask?.isImportant}
+        defaultChecked={currentTask?.isImportant}
         onChange={importantChange}
       />
 
-      {state.currentTask && (
+      {currentTask && (
         <Checkbox
           label={'Is this task completed?'}
-          defaultChecked={state.currentTask?.isCompleted}
+          defaultChecked={currentTask?.isCompleted}
           onChange={complitedChange}
         />
       )}

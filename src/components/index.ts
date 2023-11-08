@@ -8,3 +8,5 @@ export * from './Header';
 export * from './Footer';
 export * from './PageNotFound';
 export * from './Task';
+export * from './ListHead';
+export * from './ListColumn';

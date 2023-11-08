@@ -1,47 +1,40 @@
 import './Todo.css';
-import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Task from 'components/Task/Task';
-import { useAppSelector } from 'src/redux/hooks';
-import { ITask } from 'src/types/types';
+import ListHead from 'components/ListHead/ListHead';
+import ListColumn from 'components/ListColumn/ListColumn';
 
 const Todo: React.FC = () => {
-  const state = useAppSelector((state) => state);
-  const [tasks, setTasks] = useState<ITask[]>(state.tasks || []);
+  const [width, setWidth] = useState<number>(window.innerWidth);
+  const [todo, setTodo] = useState<boolean>(true);
+  const [done, setDone] = useState<boolean>(false);
 
   useEffect(() => {
-    setTasks(state.tasks);
-  }, [state.tasks]);
+    const handleResizeWindow = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResizeWindow);
+    return () => {
+      window.removeEventListener('resize', handleResizeWindow);
+    };
+  });
+
+  useEffect(() => {
+    if (width >= 661) {
+      setTodo(true);
+      setDone(true);
+    } else {
+      setDone(false);
+    }
+  }),
+    [width];
 
   return (
-    <ul className="todos__list">
-      <li className="todos__item">
-        <div className="item__head">
-          <h2 className="item__title">To do ({tasks.filter((el) => !el.isCompleted).length})</h2>
-          <NavLink className="item__add" to={'/todoform'}>
-            <span className="add__img">+</span>
-            <span className="add__text">Add task</span>
-          </NavLink>
-        </div>
-        <ul className="item__tasks">
-          {tasks
-            .filter((el) => !el.isCompleted)
-            .map((task) => <Task {...task} key={task.id} />)
-            .reverse()}
-        </ul>
-      </li>
-      <li className="todos__item">
-        <div className="item__head">
-          <h2 className="item__title">Done ({tasks.filter((el) => el.isCompleted).length})</h2>
-        </div>
-        <ul className="item__tasks">
-          {tasks
-            .filter((el) => el.isCompleted)
-            .map((task) => <Task {...task} key={task.id} />)
-            .reverse()}
-        </ul>
-      </li>
-    </ul>
+    <div className="todos">
+      {width < 661 && <ListHead />}
+      <ul className="todos__list">
+        {todo && <ListColumn label={'To do'} isComplited={true} />}
+
+        {done && <ListColumn label={'Done'} isComplited={false} />}
+      </ul>
+    </div>
   );
 };
 
