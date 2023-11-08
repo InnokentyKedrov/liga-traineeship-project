@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { ListColumnProps } from './ListColumn.types';
 import Task from 'components/Task/Task';
 import { useAppSelector } from 'src/redux/hooks';
+import './ListColumn.css';
 
 const ListColumn = ({ label, isComplited }: ListColumnProps) => {
   const tasks = useAppSelector((state) => state.tasks);
