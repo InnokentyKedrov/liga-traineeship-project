@@ -46,7 +46,7 @@
   margin: 0;
 }
 
-@media (width <= 660px) {
+@media (width <= 750px) {
   .footer {
     height: 3rem;
     padding: 0 2rem;

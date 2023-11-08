@@ -53,6 +53,7 @@ body {
 
 @media (width <= 750px) {
   .main {
+    height: calc(100vh - 6rem);
     padding: 0.5rem;
   }
 }

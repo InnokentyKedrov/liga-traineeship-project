@@ -57,3 +57,9 @@
   color: rgb(255 255 255 / 50%);
   text-overflow: ellipsis;
 }
+
+@media (width <= 350px) {
+  .task {
+    width: 14rem;
+  }
+}

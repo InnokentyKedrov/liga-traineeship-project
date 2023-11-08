@@ -1,9 +1,13 @@
+.todos {
+  height: 100%;
+}
+
 .todos__list {
   overflow: hidden;
   display: flex;
   justify-content: space-around;
 
-  height: 100%;
+  max-height: 100%;
   margin: 0;
   padding: 0;
 
@@ -12,7 +16,7 @@
 
 .todos__item {
   width: 19rem;
-  height: 100%;
+  max-height: 100%;
   padding: 1.5rem 1rem;
 
   background-color: var(--main-color);
@@ -78,14 +82,26 @@
   flex-direction: column;
   gap: 1rem;
 
-  height: calc(100% - 2.25rem);
+  max-height: calc(100% - 2rem);
   padding: 0;
+  padding-bottom: 1rem;
 
   list-style-type: none;
 }
 
 @media (width <= 660px) {
   .todos__list {
-    flex-direction: column;
+    height: calc(100% - 2.5rem);
+  }
+
+  .todos__item {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+@media (width <= 350px) {
+  .todos__item {
+    width: 17rem;
   }
 }
