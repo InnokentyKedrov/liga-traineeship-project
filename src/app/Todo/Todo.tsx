@@ -7,6 +7,7 @@ const Todo: React.FC = () => {
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [todo, setTodo] = useState<boolean>(true);
   const [done, setDone] = useState<boolean>(false);
+  const [isActive, setIsActive] = useState<boolean>(true);
 
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
@@ -20,15 +21,19 @@ const Todo: React.FC = () => {
     if (width >= 661) {
       setTodo(true);
       setDone(true);
-    } else {
+    } else if (isActive) {
+      setTodo(true);
       setDone(false);
+    } else {
+      setTodo(false);
+      setDone(true);
     }
   }),
-    [width];
+    [width, isActive];
 
   return (
     <div className="todos">
-      {width < 661 && <ListHead />}
+      {width < 661 && <ListHead isActive={isActive} setIsActive={setIsActive} />}
       <ul className="todos__list">
         {todo && <ListColumn label={'To do'} isComplited={true} />}
 
