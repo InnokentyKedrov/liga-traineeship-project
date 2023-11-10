@@ -2,9 +2,10 @@ import { useState } from 'react';
 import './TodoForm.css';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import { addCurrentTask, addTask, changeTask } from 'src/redux/slice';
+import { addCurrentTask } from 'src/redux/taskSlice';
 import { TextField } from 'components/TextField';
 import { Checkbox } from 'components/Checkbox';
+import { addTasksThunk, editTasksThunk, getAllTasksThunk } from 'src/redux/thunks';
 
 const TodoForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +21,7 @@ const TodoForm: React.FC = () => {
     event.preventDefault();
     if (currentTask) {
       dispatch(
-        changeTask({
+        editTasksThunk({
           name: name,
           info: info,
           isImportant: isImportant,
@@ -30,12 +31,11 @@ const TodoForm: React.FC = () => {
       );
     } else {
       dispatch(
-        addTask({
+        addTasksThunk({
           name: name,
           info: info,
           isImportant: isImportant,
           isCompleted: false,
-          id: tasks.length + 1,
         })
       );
     }
