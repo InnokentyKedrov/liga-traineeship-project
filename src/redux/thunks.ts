@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { ThunkAction } from 'redux-thunk';
 import { ActionType, StateType, addAllTask, addTask, deleteTask, editTask, setLoader, unsetLoader } from './taskSlice';
 import { AppDispatch } from './store';
-import { ITask } from 'src/types/types';
+import { FilteredType, ITask } from 'src/types/types';
 import TaskService from 'src/api/taskApi';
 
 // export const getAllTasksThunk =
@@ -12,19 +12,21 @@ import TaskService from 'src/api/taskApi';
 //     dispatch(addAllTask(response.data));
 //   };
 
-export const getAllTasksThunk = (): any => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(setLoader());
+export const getAllTasksThunk =
+  (filteredData?: FilteredType | undefined): any =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoader());
 
-    const response: AxiosResponse<ITask[]> = await TaskService.getAllTasksAxios();
+      const response: AxiosResponse<ITask[]> = await TaskService.getAllTasksAxios(filteredData);
 
-    dispatch(addAllTask(response.data));
-  } catch (error) {
-    console.warn(error);
-  } finally {
-    dispatch(unsetLoader());
-  }
-};
+      dispatch(addAllTask(response.data));
+    } catch (error) {
+      console.warn(error);
+    } finally {
+      dispatch(unsetLoader());
+    }
+  };
 
 export const addTasksThunk =
   (taskData: Omit<ITask, 'isComplited' | 'id'>): any =>

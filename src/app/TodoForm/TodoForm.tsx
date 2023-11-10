@@ -40,7 +40,7 @@ const TodoForm: React.FC = () => {
       );
     }
 
-    dispatch(addCurrentTask(null));
+    dispatch(addCurrentTask(undefined));
     navigate('/');
   };
 

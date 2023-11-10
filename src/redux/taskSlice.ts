@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ITask } from '../types/types';
+import { FilteredType, ITask } from '../types/types';
 
 const ADD_ALL_TASK = 'ADD_ALL_TASK';
 const ADD_TASK = 'ADD_TASK';
@@ -9,13 +9,13 @@ const REMOVE_TASK = 'REMOVE_TASK';
 
 export type StateType = {
   tasks: ITask[];
-  currentTask: ITask | null;
   isLoading: boolean;
+  currentTask?: ITask;
+  filteredData?: FilteredType;
 };
 
 const initialState: StateType = {
   tasks: [],
-  currentTask: null,
   isLoading: false,
 };
 
@@ -56,7 +56,7 @@ const todoSlice = createSlice({
     addTask(state, action: PayloadAction<ITask>) {
       state.tasks.push(action.payload);
     },
-    addCurrentTask(state, action: PayloadAction<ITask | null>) {
+    addCurrentTask(state, action: PayloadAction<ITask | undefined>) {
       state.currentTask = action.payload;
     },
     editTask(state, action: PayloadAction<ITask>) {
