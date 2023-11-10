@@ -4,7 +4,7 @@ import remove from '../../assets/icons/delete.png';
 import { ITask } from 'src/types/types';
 import './Task.css';
 import { useAppDispatch } from 'src/redux/hooks';
-import { addCurrentTask, changeTask, removeTask } from 'src/redux/slice';
+import { addCurrentTask, changeTask, removeTask } from 'src/redux/taskSlice';
 
 const Task: React.FC<ITask> = (el) => {
   const dispatch = useAppDispatch();

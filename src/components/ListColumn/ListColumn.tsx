@@ -1,11 +1,20 @@
 import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { ListColumnProps } from './ListColumn.types';
 import Task from 'components/Task/Task';
-import { useAppSelector } from 'src/redux/hooks';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import './ListColumn.css';
+import { ITask } from 'src/types/types';
+import { getAllTasksThunk } from 'src/redux/thunks';
 
 const ListColumn = ({ label, isComplited }: ListColumnProps) => {
-  const tasks = useAppSelector((state) => state.tasks);
+  const state = useAppSelector((state) => state.tasks);
+  const [tasks, setTasks] = useState<ITask[]>(state);
+  const dispatch = useAppDispatch();
+
+  // useEffect(() => {
+  //   dispatch(getAllTasksThunk());
+  // }, []);
 
   return (
     <li className="todos__item">

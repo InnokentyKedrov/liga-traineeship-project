@@ -1,10 +1,11 @@
 import { MiddlewareArray, configureStore } from '@reduxjs/toolkit';
+import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger';
-import stateReducer from './slice';
+import taskReducer from './taskSlice';
 
 const store = configureStore({
-  reducer: stateReducer,
-  middleware: new MiddlewareArray().concat(logger),
+  reducer: taskReducer,
+  middleware: new MiddlewareArray().concat(logger).concat(thunkMiddleware),
 });
 
 export default store;

@@ -1,6 +1,7 @@
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   width: 100%;
   max-width: 1280px;
@@ -22,9 +23,41 @@
   color: var(--second-color);
 }
 
+.header__form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 @media (width <= 750px) {
   .header {
-    height: 3rem;
     padding: 0 2rem;
+  }
+}
+
+@media (width <= 660px) {
+  .header {
+    height: 7rem;
+    padding: 0 0.8rem;
+  }
+
+  .header__form {
+    flex-direction: column;
+    gap: 0;
+    justify-content: space-around;
+  }
+}
+
+@media (width <= 350px) {
+  .header__logo {
+    overflow: hidden;
+    display: inline-block;
+
+    width: 2rem;
+    height: 3rem;
+    margin: 0;
+
+    font-size: 3rem;
+    line-height: 3rem;
   }
 }
