@@ -12,7 +12,7 @@
   height: 100%;
   padding: calc(2% + 1em);
 
-  background-color: #0006;
+  background-color: #0005;
 }
 
 .loaderWrapper {
@@ -39,7 +39,7 @@
   min-width: 2.5rem;
   height: 4.5rem;
 
-  background-color: #0006;
+  background-color: var(--main-color);
   border: 1px dashed #444;
 
   animation: moveColumn 4s linear infinite;
@@ -48,14 +48,20 @@
 .firstBlock {
   width: 2rem;
   height: 1.5rem;
-  background-color: #eabfff;
+
+  background-color: var(--third-color);
+  border: 1px solid var(--second-color);
+
   animation: moveFirst 4s linear infinite;
 }
 
 .secondBlock {
   width: 2rem;
   height: 1.5rem;
-  background-color: #93e396;
+
+  background-color: var(--third-color);
+  border: 1px solid var(--second-color);
+
   animation: moveSecond 4s linear infinite;
 }
 

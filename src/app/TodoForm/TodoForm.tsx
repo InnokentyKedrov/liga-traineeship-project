@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './TodoForm.css';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
@@ -10,15 +10,13 @@ import { addTasksThunk, editTasksThunk, getAllTasksThunk } from 'src/redux/thunk
 const TodoForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const currentTask = useAppSelector((state) => state.currentTask);
-  const tasks = useAppSelector((state) => state.tasks);
   const navigate = useNavigate();
   const [name, setName] = useState<string>(currentTask ? currentTask.name : '');
   const [info, setInfo] = useState<string>(currentTask ? currentTask.info : '');
   const [isImportant, setIsImportant] = useState<boolean>(currentTask ? currentTask.isImportant : false);
   const [isComplited, setIsComplited] = useState<boolean>(currentTask ? currentTask.isCompleted : false);
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
+  const onSubmit = (): void => {
     if (currentTask) {
       dispatch(
         editTasksThunk({
