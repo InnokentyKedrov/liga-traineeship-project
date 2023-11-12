@@ -1,17 +1,20 @@
-import { MiddlewareArray, configureStore } from '@reduxjs/toolkit';
-import thunkMiddleware from 'redux-thunk';
+import { applyMiddleware, combineReducers, configureStore } from '@reduxjs/toolkit';
+import thunkMiddleware, { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 import logger from 'redux-logger';
 import taskReducer from './taskSlice';
 import loadingReducer from './loadingSlice';
 import errorReducer from './errorSlice';
 
+// const thunkMiddleware = thunk as unknown as ThunkDispatch<RootStateType, undefined, AnyAction>;
+
 const store = configureStore({
-  reducer: {
+  reducer: combineReducers({
     todo: taskReducer,
     loading: loadingReducer,
     error: errorReducer,
-  },
-  middleware: new MiddlewareArray().concat(logger).concat(thunkMiddleware),
+  }),
+  middleware: [thunkMiddleware, logger] as const,
 });
 
 export default store;

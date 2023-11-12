@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TodoForm.css';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { addCurrentTask } from 'src/redux/taskSlice';
 import { TextField } from 'components/TextField';
 import { Checkbox } from 'components/Checkbox';
 import { addTasksThunk, editTasksThunk } from 'src/redux/thunks';
+import { ITask } from 'src/types/types';
+import { validationSchema } from 'src/utils/validationSchema';
 
 const TodoForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +19,10 @@ const TodoForm: React.FC = () => {
   const [info, setInfo] = useState<string>(currentTask ? currentTask.info : '');
   const [isImportant, setIsImportant] = useState<boolean>(currentTask ? currentTask.isImportant : false);
   const [isComplited, setIsComplited] = useState<boolean>(currentTask ? currentTask.isCompleted : false);
+
+  const { handleSubmit, control, setValue } = useForm<Omit<ITask, 'isImportant' | 'isComplited' | 'id'>>({
+    resolver: yupResolver(validationSchema),
+  });
 
   const onSubmit = (): void => {
     if (currentTask) {
@@ -45,11 +53,13 @@ const TodoForm: React.FC = () => {
   const nameChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
     setName(event.target.value);
+    setValue('name', event.target.value);
   };
 
   const infoChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault();
     setInfo(event.target.value);
+    setValue('info', event.target.value);
   };
 
   const importantChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -60,22 +70,45 @@ const TodoForm: React.FC = () => {
     setIsComplited(event.target.checked);
   };
 
+  useEffect(() => {
+    if (currentTask) {
+      setValue('name', currentTask.name);
+      setValue('info', currentTask.info);
+    }
+  }, [currentTask]);
+
   return (
-    <form className="form" onSubmit={onSubmit}>
-      <TextField
-        label={'Enter the name of your task'}
-        inputType={'text'}
-        defaultValue={currentTask ? currentTask.name : ''}
-        onChange={nameChange}
-        required={true}
+    <form className="form" onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name="name"
+        control={control}
+        render={({ fieldState: { error } }) => (
+          <>
+            <TextField
+              label={'Enter the name of your task'}
+              inputType={'text'}
+              defaultValue={currentTask?.name}
+              onChange={nameChange}
+            />
+            <div className="error">{error?.message}</div>
+          </>
+        )}
       />
 
-      <TextField
-        label={'Enter the description of your task'}
-        inputType={'text'}
-        defaultValue={currentTask ? currentTask.info : ''}
-        onChange={infoChange}
-        required={true}
+      <Controller
+        name="info"
+        control={control}
+        render={({ fieldState: { error } }) => (
+          <>
+            <TextField
+              label={'Enter the description of your task'}
+              inputType={'text'}
+              defaultValue={currentTask?.info}
+              onChange={infoChange}
+            />
+            <div className="error">{error?.message}</div>
+          </>
+        )}
       />
 
       <Checkbox

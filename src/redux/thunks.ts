@@ -1,19 +1,17 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { ThunkAction } from 'redux-thunk';
-import { ActionStateType, StateType, addAllTask, addTask, deleteTask, editTask } from './taskSlice';
-import { AppDispatch } from './store';
+import { ThunkDispatch } from 'redux-thunk';
+import { Dispatch, AnyAction } from 'redux';
+import { addAllTask, addTask, deleteTask, editTask } from './taskSlice';
+import { AppDispatch, RootState } from './store';
 import { setLoader, unsetLoader } from './loadingSlice';
 import { setError } from './errorSlice';
 import { FilteredType, ITask } from 'src/types/types';
 import TaskService from 'src/api/taskApi';
 
-// export const getAllTasksThunk =
-//   (filteredData?: FilteredType | undefined): ThunkAction<Promise<void>, StateType, unknown, ActionStateType> =>
-//   async (dispatch: AppDispatch) => {
-//     const response: AxiosResponse<ITask[]> = await TaskService.getAllTasks();
+// ThunkAction<Promise<void>, StateType, unknown, ActionStateType>
+// ThunkAction<Promise<void>, RootState, null, AnyAction>
 
-//     dispatch(addAllTask(response.data));
-//   };
+type ThunkDispatchType = ThunkDispatch<RootState, undefined, AnyAction> & Dispatch<AnyAction>;
 
 export const getAllTasksThunk =
   (filteredData?: FilteredType | undefined): any =>
