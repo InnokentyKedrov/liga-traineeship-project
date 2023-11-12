@@ -7,6 +7,7 @@ import { getAllTasksThunk } from 'src/redux/thunks';
 import MyLoader from 'components/MyLoader/MyLoader';
 import { unsetError } from 'src/redux/errorSlice';
 import Error from 'components/Error/Error';
+import { addCurrentTask } from 'src/redux/taskSlice';
 
 const Todo: React.FC = () => {
   const isLoading = useAppSelector((state) => state.loading.isLoading);
@@ -24,6 +25,7 @@ const Todo: React.FC = () => {
 
   useEffect(() => {
     dispatch(getAllTasksThunk());
+    dispatch(addCurrentTask(undefined));
   }, []);
 
   useEffect(() => {

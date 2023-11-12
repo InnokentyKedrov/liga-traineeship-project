@@ -1,6 +1,5 @@
-import { applyMiddleware, combineReducers, configureStore } from '@reduxjs/toolkit';
-import thunkMiddleware, { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger';
 import taskReducer from './taskSlice';
 import loadingReducer from './loadingSlice';

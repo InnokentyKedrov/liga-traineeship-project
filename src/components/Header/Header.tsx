@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
 import './Header.css';
 import { SearchInput } from '../SearchInput/SearchInput';
 import Range from 'components/Range/Range';
@@ -11,7 +12,10 @@ const Header = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [filter, setFilter] = useState<string>('All');
 
-  const searchChange = (str: string) => {
+  const { control, setValue } = useForm<{ search: string }>();
+
+  const setSearch = (str: string) => {
+    setValue('search', str);
     setSearchValue(str);
     switch (filter) {
       case 'Important':
@@ -26,10 +30,13 @@ const Header = () => {
     }
   };
 
+  const searchChange = (str: string) => {
+    setSearch(str);
+  };
+
   const searchReset = () => {
     if (searchValue) {
-      setSearchValue('');
-      dispatch(getAllTasksThunk());
+      setSearch('');
     }
   };
 
@@ -74,7 +81,12 @@ const Header = () => {
         <h1 className="header__logo">Doska</h1>
       </NavLink>
       <form className="header__form">
-        <SearchInput onChange={searchChange} value={searchValue} onReset={searchReset} />
+        <Controller
+          name="search"
+          control={control}
+          render={({ field }) => <SearchInput onChange={searchChange} value={field.value} onReset={searchReset} />}
+        />
+
         <Range filter={filter} onChange={rangeChange} />
       </form>
     </header>

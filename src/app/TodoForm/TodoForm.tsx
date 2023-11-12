@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import './TodoForm.css';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { validationSchema } from './validationSchema';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { addCurrentTask } from 'src/redux/taskSlice';
 import { TextField } from 'components/TextField';
 import { Checkbox } from 'components/Checkbox';
 import { addTasksThunk, editTasksThunk } from 'src/redux/thunks';
 import { ITask } from 'src/types/types';
-import { validationSchema } from 'src/utils/validationSchema';
 
 const TodoForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -115,6 +115,7 @@ const TodoForm: React.FC = () => {
         label={'Is this an important task?'}
         defaultChecked={currentTask?.isImportant}
         onChange={importantChange}
+        disabled={currentTask && currentTask.isCompleted}
       />
 
       {currentTask && (
