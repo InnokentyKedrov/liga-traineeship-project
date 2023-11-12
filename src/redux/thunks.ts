@@ -1,12 +1,15 @@
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { ThunkAction } from 'redux-thunk';
-import { ActionType, StateType, addAllTask, addTask, deleteTask, editTask, setLoader, unsetLoader } from './taskSlice';
+import { ActionStateType, StateType, addAllTask, addTask, deleteTask, editTask } from './taskSlice';
 import { AppDispatch } from './store';
+import { setLoader, unsetLoader } from './loadingSlice';
+import { setError } from './errorSlice';
 import { FilteredType, ITask } from 'src/types/types';
 import TaskService from 'src/api/taskApi';
 
 // export const getAllTasksThunk =
-//   (): ThunkAction<Promise<void>, StateType, unknown, ActionType> => async (dispatch: AppDispatch) => {
+//   (filteredData?: FilteredType | undefined): ThunkAction<Promise<void>, StateType, unknown, ActionStateType> =>
+//   async (dispatch: AppDispatch) => {
 //     const response: AxiosResponse<ITask[]> = await TaskService.getAllTasks();
 
 //     dispatch(addAllTask(response.data));
@@ -22,7 +25,9 @@ export const getAllTasksThunk =
 
       dispatch(addAllTask(response.data));
     } catch (error) {
-      console.warn(error);
+      if (error instanceof AxiosError || error instanceof Error) {
+        dispatch(setError(error.message));
+      }
     } finally {
       dispatch(unsetLoader());
     }
@@ -38,7 +43,9 @@ export const addTasksThunk =
 
       dispatch(addTask(response.data));
     } catch (error) {
-      console.warn(error);
+      if (error instanceof AxiosError || error instanceof Error) {
+        dispatch(setError(error.message));
+      }
     } finally {
       dispatch(unsetLoader());
     }
@@ -54,7 +61,9 @@ export const editTasksThunk =
 
       dispatch(editTask(response.data));
     } catch (error) {
-      console.warn(error);
+      if (error instanceof AxiosError || error instanceof Error) {
+        dispatch(setError(error.message));
+      }
     } finally {
       dispatch(unsetLoader());
     }
@@ -70,7 +79,9 @@ export const deleteTasksThunk =
 
       dispatch(deleteTask(taskId));
     } catch (error) {
-      console.warn(error);
+      if (error instanceof AxiosError || error instanceof Error) {
+        dispatch(setError(error.message));
+      }
     } finally {
       dispatch(unsetLoader());
     }

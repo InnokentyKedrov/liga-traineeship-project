@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
-import './TodoForm.css';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './TodoForm.css';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { addCurrentTask } from 'src/redux/taskSlice';
 import { TextField } from 'components/TextField';
 import { Checkbox } from 'components/Checkbox';
-import { addTasksThunk, editTasksThunk, getAllTasksThunk } from 'src/redux/thunks';
+import { addTasksThunk, editTasksThunk } from 'src/redux/thunks';
 
 const TodoForm: React.FC = () => {
   const dispatch = useAppDispatch();
-  const currentTask = useAppSelector((state) => state.currentTask);
+  const currentTask = useAppSelector((state) => state.todo.currentTask);
   const navigate = useNavigate();
   const [name, setName] = useState<string>(currentTask ? currentTask.name : '');
   const [info, setInfo] = useState<string>(currentTask ? currentTask.info : '');

@@ -8,19 +8,15 @@ const loadingSlice = createSlice({
   name: 'loading',
   initialState,
   reducers: {
-    loading(state) {
-      if (state.isLoading === false) {
-        state.isLoading = true;
-      }
+    setLoader: (state) => {
+      state.isLoading = true;
     },
-    received(state) {
-      if (state.isLoading === true) {
-        state.isLoading = false;
-      }
+    unsetLoader: (state) => {
+      state.isLoading = false;
     },
   },
 });
 
-export const { loading, received } = loadingSlice.actions;
+export const { setLoader, unsetLoader } = loadingSlice.actions;
 
 export default loadingSlice.reducer;

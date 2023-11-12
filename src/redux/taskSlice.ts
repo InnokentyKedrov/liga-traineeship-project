@@ -9,17 +9,15 @@ const REMOVE_TASK = 'REMOVE_TASK';
 
 export type StateType = {
   tasks: ITask[];
-  isLoading: boolean;
   currentTask?: ITask;
   filteredData?: FilteredType;
 };
 
 const initialState: StateType = {
   tasks: [],
-  isLoading: false,
 };
 
-export type ActionType = AddAllTaskType | AddTaskType | AddCurrentTaskType | ChangeTaskType | RemoveTaskType;
+export type ActionStateType = AddAllTaskType | AddTaskType | AddCurrentTaskType | ChangeTaskType | RemoveTaskType;
 
 type AddAllTaskType = {
   type: typeof ADD_ALL_TASK;
@@ -67,15 +65,9 @@ const todoSlice = createSlice({
     deleteTask(state, action: PayloadAction<number>) {
       state.tasks = state.tasks.filter((el) => action.payload !== el.id);
     },
-    setLoader: (state) => {
-      state.isLoading = true;
-    },
-    unsetLoader: (state) => {
-      state.isLoading = false;
-    },
   },
 });
 
-export const { addAllTask, addTask, addCurrentTask, editTask, deleteTask, setLoader, unsetLoader } = todoSlice.actions;
+export const { addAllTask, addTask, addCurrentTask, editTask, deleteTask } = todoSlice.actions;
 
 export default todoSlice.reducer;

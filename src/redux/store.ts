@@ -2,9 +2,15 @@ import { MiddlewareArray, configureStore } from '@reduxjs/toolkit';
 import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger';
 import taskReducer from './taskSlice';
+import loadingReducer from './loadingSlice';
+import errorReducer from './errorSlice';
 
 const store = configureStore({
-  reducer: taskReducer,
+  reducer: {
+    todo: taskReducer,
+    loading: loadingReducer,
+    error: errorReducer,
+  },
   middleware: new MiddlewareArray().concat(logger).concat(thunkMiddleware),
 });
 

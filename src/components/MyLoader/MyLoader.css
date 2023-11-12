@@ -45,6 +45,10 @@
   animation: moveColumn 4s linear infinite;
 }
 
+.middleColumn {
+  z-index: -1;
+}
+
 .firstBlock {
   width: 2rem;
   height: 1.5rem;

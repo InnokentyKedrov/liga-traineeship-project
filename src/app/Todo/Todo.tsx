@@ -5,15 +5,22 @@ import ListColumn from 'components/ListColumn/ListColumn';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { getAllTasksThunk } from 'src/redux/thunks';
 import MyLoader from 'components/MyLoader/MyLoader';
+import { unsetError } from 'src/redux/errorSlice';
+import Error from 'components/Error/Error';
 
 const Todo: React.FC = () => {
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const isLoading = useAppSelector((state) => state.loading.isLoading);
+  const error = useAppSelector((state) => state.error.error);
   const dispatch = useAppDispatch();
 
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [todo, setTodo] = useState<boolean>(true);
   const [done, setDone] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<boolean>(true);
+
+  const closeError = () => {
+    dispatch(unsetError());
+  };
 
   useEffect(() => {
     dispatch(getAllTasksThunk());
@@ -53,6 +60,7 @@ const Todo: React.FC = () => {
 
             {done && <ListColumn label={'Done'} isComplited={false} />}
           </ul>
+          {error && <Error closeError={closeError} />}
         </div>
       )}
     </>
