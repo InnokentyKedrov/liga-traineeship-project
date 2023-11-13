@@ -14,7 +14,7 @@ import TaskService from 'src/api/taskApi';
 type ThunkDispatchType = ThunkDispatch<RootState, undefined, AnyAction> & Dispatch<AnyAction>;
 
 export const getAllTasksThunk =
-  (filteredData?: FilteredType | undefined): any =>
+  (filteredData: FilteredType): any =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoader());

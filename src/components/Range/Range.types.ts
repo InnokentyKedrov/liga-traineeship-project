@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from 'react';
 
 export interface RangeProps {
-  filter: string;
+  filter?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }

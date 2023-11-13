@@ -4,7 +4,7 @@ import remove from '../../assets/icons/delete.png';
 import { ITask } from 'src/types/types';
 import './Task.css';
 import { useAppDispatch } from 'src/redux/hooks';
-import { addCurrentTask } from 'src/redux/taskSlice';
+import { editCurrentTask } from 'src/redux/taskSlice';
 import { deleteTasksThunk } from 'src/redux/thunks';
 
 const Task: React.FC<ITask> = (el) => {
@@ -12,7 +12,7 @@ const Task: React.FC<ITask> = (el) => {
   const navigate = useNavigate();
 
   const changeTask = (): void => {
-    dispatch(addCurrentTask(el));
+    dispatch(editCurrentTask(el));
     navigate('/todoform');
   };
 

@@ -1,8 +1,7 @@
-import React from 'react';
 import { TextFieldProps } from './TextField.types';
 import './TextField.css';
 
-export function TextField({
+const TextField = ({
   label,
   placeholder,
   containerClassName = '',
@@ -12,7 +11,7 @@ export function TextField({
   errorText,
   defaultValue,
   required,
-}: TextFieldProps) {
+}: TextFieldProps) => {
   return (
     <fieldset className={`mb-3 ${containerClassName}`}>
       <label htmlFor={label} className="form-label">
@@ -31,4 +30,6 @@ export function TextField({
       {errorText && <div className="invalid">{errorText}</div>}
     </fieldset>
   );
-}
+};
+
+export default TextField;

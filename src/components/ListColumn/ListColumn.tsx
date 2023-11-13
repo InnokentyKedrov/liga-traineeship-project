@@ -1,11 +1,17 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ListColumnProps } from './ListColumn.types';
 import Task from 'components/Task/Task';
-import { useAppSelector } from 'src/redux/hooks';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import './ListColumn.css';
+import { addCurrentTask } from 'src/redux/taskSlice';
 
 const ListColumn = ({ label, isComplited }: ListColumnProps) => {
   const tasks = useAppSelector((state) => state.todo.tasks);
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    dispatch(addCurrentTask(true));
+  };
 
   return (
     <li className="todos__item">
@@ -15,10 +21,10 @@ const ListColumn = ({ label, isComplited }: ListColumnProps) => {
           )
         </h2>
         {label === 'To do' && (
-          <NavLink className="item__add" to={'/todoform'}>
+          <Link className="item__add" to={'/todoform'} onClick={handleClick}>
             <span className="add__img">+</span>
             <span className="add__text">Add task</span>
-          </NavLink>
+          </Link>
         )}
       </div>
       <ul className="item__tasks">

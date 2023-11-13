@@ -8,5 +8,5 @@ export interface ITask {
 
 export type FilteredType = {
   isImportant?: boolean;
-  name_like?: string;
+  name_like: string;
 };

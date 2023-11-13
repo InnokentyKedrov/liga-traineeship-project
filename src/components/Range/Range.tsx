@@ -4,14 +4,17 @@ import './Range.css';
 const Range = ({ filter, onChange }: RangeProps) => {
   return (
     <fieldset className="range">
-      <label className="range__label">Filtered by:</label>
+      <label className="range__label" htmlFor="range">
+        Filtered by:
+      </label>
       <div className="range__wrapper">
         <input
           className="range__input"
+          id="range"
           type="range"
           min="0"
           max="2"
-          value={filter === 'All' ? '0' : filter === 'Important' ? '1' : '2'}
+          value={filter === false ? '2' : filter === true ? '1' : '0'}
           list="tickmarks"
           name="filter"
           onChange={onChange}

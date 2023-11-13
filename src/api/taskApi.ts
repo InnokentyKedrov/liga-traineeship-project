@@ -2,7 +2,7 @@ import axios from 'axios';
 import URI_API from 'constants/api';
 import { FilteredType, ITask } from 'src/types/types';
 
-const getAllTasksAxios = async (filteredData?: FilteredType) => {
+const getAllTasksAxios = async (filteredData: FilteredType) => {
   const response = await axios.get(URI_API, { params: filteredData });
   return response;
 };

@@ -1,27 +1,29 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import './Header.css';
 import { SearchInput } from '../SearchInput/SearchInput';
 import Range from 'components/Range/Range';
-import { useAppDispatch } from 'src/redux/hooks';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { getAllTasksThunk } from 'src/redux/thunks';
+import { setFilter, setSearch } from 'src/redux/filterSlice';
 
 const Header = () => {
+  const currentTask = useAppSelector((state) => state.todo.currentTask);
+  const isAddTask = useAppSelector((state) => state.todo.isAddTask);
+  const searchValue = useAppSelector((state) => state.filter.search);
+  const filter = useAppSelector((state) => state.filter.filter);
   const dispatch = useAppDispatch();
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [filter, setFilter] = useState<string>('All');
 
   const { control, setValue } = useForm<{ search: string }>();
 
-  const setSearch = (str: string) => {
+  const search = (str: string) => {
     setValue('search', str);
-    setSearchValue(str);
+    dispatch(setSearch(str));
     switch (filter) {
-      case 'Important':
+      case true:
         dispatch(getAllTasksThunk({ isImportant: true, name_like: str }));
         break;
-      case 'Unimportant':
+      case false:
         dispatch(getAllTasksThunk({ isImportant: false, name_like: str }));
         break;
       default:
@@ -30,65 +32,50 @@ const Header = () => {
     }
   };
 
-  const searchChange = (str: string) => {
-    setSearch(str);
+  const searchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    search(event.target.value);
   };
 
   const searchReset = () => {
     if (searchValue) {
-      setSearch('');
+      search('');
     }
   };
 
   const rangeChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
-    if (searchValue) {
-      switch (event.target.value) {
-        case '0':
-          setFilter('All');
-          dispatch(getAllTasksThunk({ name_like: searchValue }));
-          break;
-        case '1':
-          setFilter('Important');
-          dispatch(getAllTasksThunk({ isImportant: true, name_like: searchValue }));
-          break;
-        default:
-          setFilter('Unimportant');
-          dispatch(getAllTasksThunk({ isImportant: false, name_like: searchValue }));
-          break;
-      }
-    } else {
-      switch (event.target.value) {
-        case '0':
-          setFilter('All');
-          dispatch(getAllTasksThunk());
-          break;
-        case '1':
-          setFilter('Important');
-          dispatch(getAllTasksThunk({ isImportant: true }));
-          break;
-        default:
-          setFilter('Unimportant');
-          dispatch(getAllTasksThunk({ isImportant: false }));
-          break;
-      }
+    switch (event.target.value) {
+      case '0':
+        dispatch(setFilter(undefined));
+        dispatch(getAllTasksThunk({ name_like: searchValue || '' }));
+        break;
+      case '1':
+        dispatch(setFilter(true));
+        dispatch(getAllTasksThunk({ isImportant: true, name_like: searchValue || '' }));
+        break;
+      default:
+        dispatch(setFilter(false));
+        dispatch(getAllTasksThunk({ isImportant: false, name_like: searchValue || '' }));
+        break;
     }
   };
 
   return (
     <header className="header">
-      <NavLink className="header__link" to={'/'}>
+      <Link className="header__link" to={'/'}>
         <h1 className="header__logo">Doska</h1>
-      </NavLink>
-      <form className="header__form">
-        <Controller
-          name="search"
-          control={control}
-          render={({ field }) => <SearchInput onChange={searchChange} value={field.value} onReset={searchReset} />}
-        />
+      </Link>
+      {!currentTask && !isAddTask && (
+        <form className="header__form">
+          <Controller
+            name="search"
+            control={control}
+            render={() => <SearchInput onChange={searchChange} value={searchValue} onReset={searchReset} />}
+          />
 
-        <Range filter={filter} onChange={rangeChange} />
-      </form>
+          <Range filter={filter} onChange={rangeChange} />
+        </form>
+      )}
     </header>
   );
 };

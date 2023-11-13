@@ -5,8 +5,8 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from './validationSchema';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import { addCurrentTask } from 'src/redux/taskSlice';
-import { TextField } from 'components/TextField';
+import { editCurrentTask } from 'src/redux/taskSlice';
+import TextField from 'components/TextField/TextField';
 import { Checkbox } from 'components/Checkbox';
 import { addTasksThunk, editTasksThunk } from 'src/redux/thunks';
 import { ITask } from 'src/types/types';
@@ -46,7 +46,7 @@ const TodoForm: React.FC = () => {
       );
     }
 
-    dispatch(addCurrentTask(undefined));
+    dispatch(editCurrentTask(undefined));
     navigate('/');
   };
 

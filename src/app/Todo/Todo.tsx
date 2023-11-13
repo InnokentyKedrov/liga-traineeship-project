@@ -7,11 +7,13 @@ import { getAllTasksThunk } from 'src/redux/thunks';
 import MyLoader from 'components/MyLoader/MyLoader';
 import { unsetError } from 'src/redux/errorSlice';
 import Error from 'components/Error/Error';
-import { addCurrentTask } from 'src/redux/taskSlice';
+import { addCurrentTask, editCurrentTask } from 'src/redux/taskSlice';
 
 const Todo: React.FC = () => {
   const isLoading = useAppSelector((state) => state.loading.isLoading);
   const error = useAppSelector((state) => state.error.error);
+  const searchValue = useAppSelector((state) => state.filter.search);
+  const filter = useAppSelector((state) => state.filter.filter);
   const dispatch = useAppDispatch();
 
   const [width, setWidth] = useState<number>(window.innerWidth);
@@ -24,8 +26,9 @@ const Todo: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllTasksThunk());
-    dispatch(addCurrentTask(undefined));
+    dispatch(getAllTasksThunk({ isImportant: filter, name_like: searchValue }));
+    dispatch(editCurrentTask(undefined));
+    dispatch(addCurrentTask(false));
   }, []);
 
   useEffect(() => {
