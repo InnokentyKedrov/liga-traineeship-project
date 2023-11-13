@@ -4,16 +4,16 @@ import remove from '../../assets/icons/delete.png';
 import { ITask } from 'src/types/types';
 import './Task.css';
 import { useAppDispatch } from 'src/redux/hooks';
-import { editCurrentTask } from 'src/redux/taskSlice';
-import { deleteTasksThunk } from 'src/redux/thunks';
+// import { editCurrentTask } from 'src/redux/taskSlice';
+import { deleteTasksThunk, getTaskByIdThunk } from 'src/redux/thunks';
 
 const Task: React.FC<ITask> = (el) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const changeTask = (): void => {
-    dispatch(editCurrentTask(el));
-    navigate('/todoform');
+    dispatch(getTaskByIdThunk(el.id));
+    navigate(`/todoform/${el.id}`);
   };
 
   const removeTask = (): void => {

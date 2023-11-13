@@ -7,6 +7,11 @@ const getAllTasksAxios = async (filteredData: FilteredType) => {
   return response;
 };
 
+const getTaskByIdAxios = async (taskId: number) => {
+  const response = await axios.get(`${URI_API}/${taskId}`);
+  return response;
+};
+
 const addTaskAxios = async (taskData: Omit<ITask, 'isComplited' | 'id'>) => {
   const { name, info, isImportant } = taskData;
   const body = { name, info, isImportant };
@@ -30,6 +35,7 @@ const deleteTaskAxios = async (taskId: number) => {
 
 const TaskService = {
   getAllTasksAxios,
+  getTaskByIdAxios,
   addTaskAxios,
   deleteTaskAxios,
   editTaskAxios,

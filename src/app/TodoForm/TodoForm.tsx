@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './TodoForm.css';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,39 +8,47 @@ import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { editCurrentTask } from 'src/redux/taskSlice';
 import TextField from 'components/TextField/TextField';
 import { Checkbox } from 'components/Checkbox';
-import { addTasksThunk, editTasksThunk } from 'src/redux/thunks';
+import { addTasksThunk, editTasksThunk, getTaskByIdThunk } from 'src/redux/thunks';
 import { ITask } from 'src/types/types';
 
 const TodoForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const currentTask = useAppSelector((state) => state.todo.currentTask);
   const navigate = useNavigate();
-  const [name, setName] = useState<string>(currentTask ? currentTask.name : '');
-  const [info, setInfo] = useState<string>(currentTask ? currentTask.info : '');
+  const currentId = Number(useLocation().pathname.split('/').slice(-1)[0]);
   const [isImportant, setIsImportant] = useState<boolean>(currentTask ? currentTask.isImportant : false);
   const [isComplited, setIsComplited] = useState<boolean>(currentTask ? currentTask.isCompleted : false);
 
-  const { handleSubmit, control, setValue } = useForm<Omit<ITask, 'isImportant' | 'isComplited' | 'id'>>({
+  const defaultValues = {
+    name: currentTask?.name,
+    info: currentTask?.info,
+    isImported: currentTask?.isImportant,
+    isComplited: currentTask?.isCompleted,
+  };
+
+  const { handleSubmit, control, setValue } = useForm<Omit<ITask, 'id'>>({
+    defaultValues: defaultValues,
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (): void => {
-    if (currentTask) {
+  const onSubmit = (task: Omit<ITask, 'id'>): void => {
+    console.log('task: ', task);
+    if (currentId) {
       dispatch(
         editTasksThunk({
-          name: name,
-          info: info,
-          isImportant: isImportant,
-          isCompleted: isComplited,
-          id: currentTask.id,
+          name: task.name,
+          info: task.info,
+          isImportant: task.isImportant,
+          isCompleted: task.isCompleted,
+          id: currentId,
         })
       );
     } else {
       dispatch(
         addTasksThunk({
-          name: name,
-          info: info,
-          isImportant: isImportant,
+          name: task.name,
+          info: task.info,
+          isImportant: task.isImportant,
           isCompleted: false,
         })
       );
@@ -51,29 +59,33 @@ const TodoForm: React.FC = () => {
   };
 
   const nameChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    event.preventDefault();
-    setName(event.target.value);
     setValue('name', event.target.value);
   };
 
   const infoChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    event.preventDefault();
-    setInfo(event.target.value);
     setValue('info', event.target.value);
   };
 
   const importantChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setIsImportant(event.target.checked);
+    setValue('isImportant', event.target.checked);
   };
 
   const complitedChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setIsComplited(event.target.checked);
+    setValue('isCompleted', event.target.checked);
   };
+
+  useEffect(() => {
+    if (currentId) {
+      dispatch(getTaskByIdThunk(currentId));
+    }
+  }, [currentId]);
 
   useEffect(() => {
     if (currentTask) {
       setValue('name', currentTask.name);
       setValue('info', currentTask.info);
+      setValue('isImportant', currentTask.isImportant);
+      setValue('isCompleted', currentTask.isCompleted);
     }
   }, [currentTask]);
 
@@ -82,12 +94,12 @@ const TodoForm: React.FC = () => {
       <Controller
         name="name"
         control={control}
-        render={({ fieldState: { error } }) => (
+        render={({ field, fieldState: { error } }) => (
           <>
             <TextField
               label={'Enter the name of your task'}
               inputType={'text'}
-              defaultValue={currentTask?.name}
+              value={field.value}
               onChange={nameChange}
             />
             <div className="error">{error?.message}</div>
@@ -98,12 +110,12 @@ const TodoForm: React.FC = () => {
       <Controller
         name="info"
         control={control}
-        render={({ fieldState: { error } }) => (
+        render={({ field, fieldState: { error } }) => (
           <>
             <TextField
               label={'Enter the description of your task'}
               inputType={'text'}
-              defaultValue={currentTask?.info}
+              value={field.value}
               onChange={infoChange}
             />
             <div className="error">{error?.message}</div>
@@ -111,18 +123,26 @@ const TodoForm: React.FC = () => {
         )}
       />
 
-      <Checkbox
-        label={'Is this an important task?'}
-        defaultChecked={currentTask?.isImportant}
-        onChange={importantChange}
-        disabled={currentTask && currentTask.isCompleted}
+      <Controller
+        name="isImportant"
+        control={control}
+        render={({ field }) => (
+          <Checkbox
+            label={'Is this an important task?'}
+            checked={field.value}
+            onChange={importantChange}
+            disabled={currentTask && currentTask.isCompleted}
+          />
+        )}
       />
 
       {currentTask && (
-        <Checkbox
-          label={'Is this task completed?'}
-          defaultChecked={currentTask?.isCompleted}
-          onChange={complitedChange}
+        <Controller
+          name="isCompleted"
+          control={control}
+          render={({ field }) => (
+            <Checkbox label={'Is this task completed?'} checked={field.value} onChange={complitedChange} />
+          )}
         />
       )}
 

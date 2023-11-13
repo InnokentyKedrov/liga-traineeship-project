@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { ThunkDispatch } from 'redux-thunk';
 import { Dispatch, AnyAction } from 'redux';
-import { addAllTask, addTask, deleteTask, editTask } from './taskSlice';
+import { addAllTask, addTask, deleteTask, editCurrentTask, editTask } from './taskSlice';
 import { AppDispatch, RootState } from './store';
 import { setLoader, unsetLoader } from './loadingSlice';
 import { setError } from './errorSlice';
@@ -22,6 +22,24 @@ export const getAllTasksThunk =
       const response: AxiosResponse<ITask[]> = await TaskService.getAllTasksAxios(filteredData);
 
       dispatch(addAllTask(response.data));
+    } catch (error) {
+      if (error instanceof AxiosError || error instanceof Error) {
+        dispatch(setError(error.message));
+      }
+    } finally {
+      dispatch(unsetLoader());
+    }
+  };
+
+export const getTaskByIdThunk =
+  (taskId: number): any =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoader());
+
+      const response: AxiosResponse<ITask> = await TaskService.getTaskByIdAxios(taskId);
+
+      dispatch(editCurrentTask(response.data));
     } catch (error) {
       if (error instanceof AxiosError || error instanceof Error) {
         dispatch(setError(error.message));
