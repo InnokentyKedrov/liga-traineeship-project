@@ -1,15 +1,7 @@
-import React from 'react';
-import { CheckboxProps } from './Checkbox.types';
-import './Checkbox.css';
+import { CheckboxProps } from 'src/components/Checkbox/Checkbox.types';
+import 'src/components/Checkbox/Checkbox.css';
 
-export function Checkbox({
-  label,
-  checked,
-  onChange,
-  disabled,
-  containerClassName = '',
-  defaultChecked,
-}: CheckboxProps) {
+const Checkbox = ({ label, checked, onChange, disabled, containerClassName = '', defaultChecked }: CheckboxProps) => {
   return (
     <fieldset className={`form-check mb-3 ${containerClassName}`}>
       <input
@@ -27,4 +19,6 @@ export function Checkbox({
       </label>
     </fieldset>
   );
-}
+};
+
+export default Checkbox;

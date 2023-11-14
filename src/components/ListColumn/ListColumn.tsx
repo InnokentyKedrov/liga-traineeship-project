@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { ListColumnProps } from './ListColumn.types';
-import Task from 'components/Task/Task';
+import { ListColumnProps } from 'src/components/ListColumn/ListColumn.types';
+import Task from 'src/components/Task/Task';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import './ListColumn.css';
 import { addCurrentTask } from 'src/redux/slices/taskSlice';
+import 'src/components/ListColumn/ListColumn.css';
 
 const ListColumn = ({ label, isComplited }: ListColumnProps) => {
   const tasks = useAppSelector((state) => state.todo.tasks);

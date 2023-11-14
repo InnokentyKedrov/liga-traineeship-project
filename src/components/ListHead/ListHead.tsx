@@ -1,5 +1,5 @@
-import './ListHead.css';
-import { ListHeadProps } from './ListHead.types';
+import { ListHeadProps } from 'src/components/ListHead/ListHead.types';
+import 'src/components/ListHead/ListHead.css';
 
 const ListHead = ({ isActive, setIsActive }: ListHeadProps) => {
   const active: React.MouseEventHandler<HTMLSpanElement> = (event): void => {

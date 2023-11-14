@@ -5,7 +5,7 @@ import {
   GetTaskByIdResponseType,
   PatchTaskByIdRequestWithBodyType,
   PatchTaskByIdResponseType,
-} from '../../types/types';
+} from 'src/types/types';
 
 const ADD_ALL_TASK = 'ADD_ALL_TASK';
 const ADD_TASK = 'ADD_TASK';

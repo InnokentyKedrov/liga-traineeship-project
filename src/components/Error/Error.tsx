@@ -1,6 +1,6 @@
-import { ErrorType } from './Error.types';
+import { ErrorType } from 'src/components/Error/Error.types';
 import { useAppSelector } from 'src/redux/hooks';
-import './Error.css';
+import 'src/components/Error/Error.css';
 
 const Error: React.FC<ErrorType> = ({ closeError }) => {
   const error = useAppSelector((state) => state.error.error);

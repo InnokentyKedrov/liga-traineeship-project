@@ -1,10 +1,10 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { ThunkDispatch } from 'redux-thunk';
 import { Dispatch, AnyAction } from 'redux';
-import { addAllTask, addTask, deleteTask, editCurrentTask, editTask } from './slices/taskSlice';
-import { AppDispatch, RootState } from './store';
-import { setLoader, unsetLoader } from './slices/loadingSlice';
-import { setError } from './slices/errorSlice';
+import { AppDispatch, RootState } from 'src/redux/store';
+import { addAllTask, addTask, deleteTask, editCurrentTask, editTask } from 'src/redux/slices/taskSlice';
+import { setLoader, unsetLoader } from 'src/redux/slices/loadingSlice';
+import { setError } from 'src/redux/slices/errorSlice';
 import {
   DeleteTaskByIdRequestType,
   DeleteTaskByIdResponseType,

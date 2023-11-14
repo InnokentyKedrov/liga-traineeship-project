@@ -1,4 +1,4 @@
-import { paths } from './api';
+import { paths } from 'src/types/api';
 
 export type GetTaskByIdRequestType = paths['/tasks/{taskId}']['get']['parameters']['path']['taskId'];
 export type GetTaskByIdResponseType =

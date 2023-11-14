@@ -1,5 +1,5 @@
-import { RangeProps } from './Range.types';
-import './Range.css';
+import { RangeProps } from 'src/components/Range/Range.types';
+import 'src/components/Range/Range.css';
 
 const Range = ({ filter, onChange }: RangeProps) => {
   return (
@@ -14,7 +14,7 @@ const Range = ({ filter, onChange }: RangeProps) => {
           type="range"
           min="0"
           max="2"
-          value={filter === false ? '2' : filter === true ? '1' : '0'}
+          value={filter}
           list="tickmarks"
           name="filter"
           onChange={onChange}

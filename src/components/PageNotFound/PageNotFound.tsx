@@ -1,6 +1,6 @@
-import './PageNotFound.css';
+import 'src/components/PageNotFound/PageNotFound.css';
 
-const PageNotFound = () => {
+const PageNotFound: React.FC = () => {
   return (
     <div className="notFound">
       <h2 className="notFound__title">Page not found</h2>

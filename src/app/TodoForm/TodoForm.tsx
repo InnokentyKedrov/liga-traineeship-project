@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import './TodoForm.css';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { validationSchema } from './validationSchema';
+import { validationSchema } from 'src/app/TodoForm/validationSchema';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import TextField from 'components/TextField/TextField';
-import { Checkbox } from 'components/Checkbox';
 import { addTasksThunk, editTasksThunk, getTaskByIdThunk } from 'src/redux/thunks';
 import { PatchTaskByIdRequestWithBodyType } from 'src/types/types';
+import TextField from 'src/components/TextField/TextField';
+import Checkbox from 'src/components/Checkbox/Checkbox';
+import 'src/app/TodoForm/TodoForm.css';
 
 const TodoForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -68,7 +68,7 @@ const TodoForm: React.FC = () => {
   };
 
   useEffect(() => {
-    if (currentId) {
+    if (currentId !== 'todoform') {
       dispatch(getTaskByIdThunk(currentId));
     }
   }, [currentId]);

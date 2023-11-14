@@ -1,8 +1,8 @@
 import { MouseEvent } from 'react';
-import './SearchInput.css';
-import { SearchInputProps } from './SearchInput.types';
+import { SearchInputProps } from 'src/components/SearchInput/SearchInput.types';
+import 'src/components/SearchInput/SearchInput.css';
 
-export function SearchInput({ onChange, value, onReset }: SearchInputProps) {
+const SearchInput = ({ onChange, value, onReset }: SearchInputProps) => {
   const onResetBtnClick = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     if (onReset) onReset();
@@ -16,4 +16,6 @@ export function SearchInput({ onChange, value, onReset }: SearchInputProps) {
       </button>
     </fieldset>
   );
-}
+};
+
+export default SearchInput;

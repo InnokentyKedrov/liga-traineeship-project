@@ -1,7 +1,6 @@
-import { FC } from 'react';
-import './Footer.css';
+import 'src/components/Footer/Footer.css';
 
-const Footer: FC = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <a href="https://github.com/InnokentyKedrov" className="footer__link">

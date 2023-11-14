@@ -1,12 +1,12 @@
-import './Todo.css';
 import { useEffect, useState } from 'react';
-import ListHead from 'components/ListHead/ListHead';
-import ListColumn from 'components/ListColumn/ListColumn';
+import 'src/app/Todo/Todo.css';
+import ListHead from 'src/components/ListHead/ListHead';
+import ListColumn from 'src/components/ListColumn/ListColumn';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { getAllTasksThunk } from 'src/redux/thunks';
-import MyLoader from 'components/MyLoader/MyLoader';
+import MyLoader from 'src/components/MyLoader/MyLoader';
 import { unsetError } from 'src/redux/slices/errorSlice';
-import Error from 'components/Error/Error';
+import Error from 'src/components/Error/Error';
 import { addCurrentTask, editCurrentTask } from 'src/redux/slices/taskSlice';
 
 const Todo: React.FC = () => {
@@ -26,7 +26,18 @@ const Todo: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllTasksThunk({ isImportant: filter, name_like: searchValue }));
+    switch (filter) {
+      case '1':
+        dispatch(getAllTasksThunk({ isImportant: true, name_like: searchValue }));
+        break;
+      case '2':
+        dispatch(getAllTasksThunk({ isImportant: false, name_like: searchValue }));
+        break;
+
+      default:
+        dispatch(getAllTasksThunk({ name_like: searchValue }));
+        break;
+    }
     dispatch(editCurrentTask(undefined));
     dispatch(addCurrentTask(false));
   }, []);

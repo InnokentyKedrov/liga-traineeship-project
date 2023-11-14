@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
-import './Header.css';
-import { SearchInput } from '../SearchInput/SearchInput';
-import Range from 'components/Range/Range';
+import SearchInput from 'src/components/SearchInput/SearchInput';
+import Range from 'src/components/Range/Range';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { getAllTasksThunk } from 'src/redux/thunks';
 import { setFilter, setSearch } from 'src/redux/slices/filterSlice';
+import 'src/components/Header/Header.css';
 
-const Header = () => {
+const Header: React.FC = () => {
   const currentTask = useAppSelector((state) => state.todo.currentTask);
   const isAddTask = useAppSelector((state) => state.todo.isAddTask);
   const searchValue = useAppSelector((state) => state.filter.search);
@@ -20,10 +20,10 @@ const Header = () => {
     setValue('search', str);
     dispatch(setSearch(str));
     switch (filter) {
-      case true:
+      case '1':
         dispatch(getAllTasksThunk({ isImportant: true, name_like: str }));
         break;
-      case false:
+      case '2':
         dispatch(getAllTasksThunk({ isImportant: false, name_like: str }));
         break;
       default:
@@ -46,18 +46,16 @@ const Header = () => {
     event.preventDefault();
     switch (event.target.value) {
       case '0':
-        dispatch(setFilter(undefined));
         dispatch(getAllTasksThunk({ name_like: searchValue || '' }));
         break;
       case '1':
-        dispatch(setFilter(true));
         dispatch(getAllTasksThunk({ isImportant: true, name_like: searchValue || '' }));
         break;
       default:
-        dispatch(setFilter(false));
         dispatch(getAllTasksThunk({ isImportant: false, name_like: searchValue || '' }));
         break;
     }
+    dispatch(setFilter(event.target.value));
   };
 
   return (

@@ -1,5 +1,5 @@
-import { TextFieldProps } from './TextField.types';
-import './TextField.css';
+import { TextFieldProps } from 'src/components/TextField/TextField.types';
+import 'src/components/TextField/TextField.css';
 
 const TextField = ({
   label,

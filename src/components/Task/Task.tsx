@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import edit from '../../assets/icons/edit.png';
-import remove from '../../assets/icons/delete.png';
+import edit from 'src/assets/icons/edit.png';
+import remove from 'src/assets/icons/delete.png';
 import { GetTaskByIdResponseType } from 'src/types/types';
-import './Task.css';
 import { useAppDispatch } from 'src/redux/hooks';
-// import { editCurrentTask } from 'src/redux/taskSlice';
 import { deleteTasksThunk, getTaskByIdThunk } from 'src/redux/thunks';
+import 'src/components/Task/Task.css';
 
 const Task: React.FC<GetTaskByIdResponseType> = (el) => {
   const dispatch = useAppDispatch();

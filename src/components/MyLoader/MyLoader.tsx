@@ -1,7 +1,6 @@
-import { FC } from 'react';
-import './MyLoader.css';
+import 'src/components/MyLoader/MyLoader.css';
 
-const MyLoader: FC = () => {
+const MyLoader: React.FC = () => {
   return (
     <section className="loader">
       <div className="loaderWrapper">

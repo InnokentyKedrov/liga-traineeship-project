@@ -1,5 +1,5 @@
 import axios from 'axios';
-import URI_API from 'constants/api';
+import URI_API from 'src/constants/api';
 import {
   DeleteTaskByIdRequestType,
   GetAllTasksRequestType,

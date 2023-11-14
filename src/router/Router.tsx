@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Todo from 'app/Todo/Todo';
-import TodoForm from 'app/TodoForm/TodoForm';
-import PageNotFound from 'components/PageNotFound/PageNotFound';
+import Todo from 'src/app/Todo/Todo';
+import TodoForm from 'src/app/TodoForm/TodoForm';
+import PageNotFound from 'src/components/PageNotFound/PageNotFound';
 
 const Router = () => {
   return (

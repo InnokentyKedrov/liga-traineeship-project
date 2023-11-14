@@ -1,10 +1,10 @@
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import store from 'src/redux/store';
 import './index.css';
-import Header from 'components/Header/Header';
-import Footer from 'components/Footer/Footer';
-import Router from 'router/Router';
+import Header from 'src/components/Header/Header';
+import Footer from 'src/components/Footer/Footer';
+import Router from 'src/router/Router';
 
 const App = () => {
   return (
