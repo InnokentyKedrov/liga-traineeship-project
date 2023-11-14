@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './TodoForm.css';
 import { useForm, Controller } from 'react-hook-form';
@@ -16,14 +16,12 @@ const TodoForm: React.FC = () => {
   const currentTask = useAppSelector((state) => state.todo.currentTask);
   const navigate = useNavigate();
   const currentId = Number(useLocation().pathname.split('/').slice(-1)[0]);
-  const [isImportant, setIsImportant] = useState<boolean>(currentTask ? currentTask.isImportant : false);
-  const [isComplited, setIsComplited] = useState<boolean>(currentTask ? currentTask.isCompleted : false);
 
   const defaultValues = {
-    name: currentTask?.name,
-    info: currentTask?.info,
-    isImported: currentTask?.isImportant,
-    isComplited: currentTask?.isCompleted,
+    name: '',
+    info: '',
+    isImported: false,
+    isComplited: false,
   };
 
   const { handleSubmit, control, setValue } = useForm<Omit<ITask, 'id'>>({
@@ -32,7 +30,6 @@ const TodoForm: React.FC = () => {
   });
 
   const onSubmit = (task: Omit<ITask, 'id'>): void => {
-    console.log('task: ', task);
     if (currentId) {
       dispatch(
         editTasksThunk({
