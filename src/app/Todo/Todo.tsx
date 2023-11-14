@@ -5,9 +5,9 @@ import ListColumn from 'components/ListColumn/ListColumn';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { getAllTasksThunk } from 'src/redux/thunks';
 import MyLoader from 'components/MyLoader/MyLoader';
-import { unsetError } from 'src/redux/errorSlice';
+import { unsetError } from 'src/redux/slices/errorSlice';
 import Error from 'components/Error/Error';
-import { addCurrentTask, editCurrentTask } from 'src/redux/taskSlice';
+import { addCurrentTask, editCurrentTask } from 'src/redux/slices/taskSlice';
 
 const Todo: React.FC = () => {
   const isLoading = useAppSelector((state) => state.loading.isLoading);

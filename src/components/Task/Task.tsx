@@ -1,23 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import edit from '../../assets/icons/edit.png';
 import remove from '../../assets/icons/delete.png';
-import { ITask } from 'src/types/types';
+import { GetTaskByIdResponseType } from 'src/types/types';
 import './Task.css';
 import { useAppDispatch } from 'src/redux/hooks';
 // import { editCurrentTask } from 'src/redux/taskSlice';
 import { deleteTasksThunk, getTaskByIdThunk } from 'src/redux/thunks';
 
-const Task: React.FC<ITask> = (el) => {
+const Task: React.FC<GetTaskByIdResponseType> = (el) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const changeTask = (): void => {
-    dispatch(getTaskByIdThunk(el.id));
+    dispatch(getTaskByIdThunk(String(el.id)));
     navigate(`/todoform/${el.id}`);
   };
 
   const removeTask = (): void => {
-    dispatch(deleteTasksThunk(el.id));
+    dispatch(deleteTasksThunk(String(el.id)));
   };
 
   return (

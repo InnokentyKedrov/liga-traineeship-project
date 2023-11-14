@@ -3,7 +3,7 @@ import { ListColumnProps } from './ListColumn.types';
 import Task from 'components/Task/Task';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import './ListColumn.css';
-import { addCurrentTask } from 'src/redux/taskSlice';
+import { addCurrentTask } from 'src/redux/slices/taskSlice';
 
 const ListColumn = ({ label, isComplited }: ListColumnProps) => {
   const tasks = useAppSelector((state) => state.todo.tasks);

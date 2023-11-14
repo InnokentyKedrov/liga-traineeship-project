@@ -5,7 +5,7 @@ import { SearchInput } from '../SearchInput/SearchInput';
 import Range from 'components/Range/Range';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { getAllTasksThunk } from 'src/redux/thunks';
-import { setFilter, setSearch } from 'src/redux/filterSlice';
+import { setFilter, setSearch } from 'src/redux/slices/filterSlice';
 
 const Header = () => {
   const currentTask = useAppSelector((state) => state.todo.currentTask);

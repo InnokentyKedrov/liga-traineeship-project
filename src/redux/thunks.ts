@@ -1,11 +1,22 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { ThunkDispatch } from 'redux-thunk';
 import { Dispatch, AnyAction } from 'redux';
-import { addAllTask, addTask, deleteTask, editCurrentTask, editTask } from './taskSlice';
+import { addAllTask, addTask, deleteTask, editCurrentTask, editTask } from './slices/taskSlice';
 import { AppDispatch, RootState } from './store';
-import { setLoader, unsetLoader } from './loadingSlice';
-import { setError } from './errorSlice';
-import { FilteredType, ITask } from 'src/types/types';
+import { setLoader, unsetLoader } from './slices/loadingSlice';
+import { setError } from './slices/errorSlice';
+import {
+  DeleteTaskByIdRequestType,
+  DeleteTaskByIdResponseType,
+  GetAllTasksRequestType,
+  GetAllTasksResponseType,
+  GetTaskByIdRequestType,
+  GetTaskByIdResponseType,
+  PatchTaskByIdRequestType,
+  PatchTaskByIdRequestWithBodyType,
+  PatchTaskByIdResponseType,
+  PostTaskResponseType,
+} from 'src/types/types';
 import TaskService from 'src/api/taskApi';
 
 // ThunkAction<Promise<void>, StateType, unknown, ActionStateType>
@@ -14,12 +25,12 @@ import TaskService from 'src/api/taskApi';
 type ThunkDispatchType = ThunkDispatch<RootState, undefined, AnyAction> & Dispatch<AnyAction>;
 
 export const getAllTasksThunk =
-  (filteredData: FilteredType): any =>
+  (filteredData: GetAllTasksRequestType): any =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoader());
 
-      const response: AxiosResponse<ITask[]> = await TaskService.getAllTasksAxios(filteredData);
+      const response: AxiosResponse<GetAllTasksResponseType> = await TaskService.getAllTasksAxios(filteredData);
 
       dispatch(addAllTask(response.data));
     } catch (error) {
@@ -32,12 +43,12 @@ export const getAllTasksThunk =
   };
 
 export const getTaskByIdThunk =
-  (taskId: number): any =>
+  (taskId: GetTaskByIdRequestType): any =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoader());
 
-      const response: AxiosResponse<ITask> = await TaskService.getTaskByIdAxios(taskId);
+      const response: AxiosResponse<GetTaskByIdResponseType> = await TaskService.getTaskByIdAxios(taskId);
 
       dispatch(editCurrentTask(response.data));
     } catch (error) {
@@ -50,12 +61,12 @@ export const getTaskByIdThunk =
   };
 
 export const addTasksThunk =
-  (taskData: Omit<ITask, 'isComplited' | 'id'>): any =>
+  (taskData: PostTaskResponseType): any =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoader());
 
-      const response: AxiosResponse<ITask> = await TaskService.addTaskAxios(taskData);
+      const response: AxiosResponse<PostTaskResponseType> = await TaskService.addTaskAxios(taskData);
 
       dispatch(addTask(response.data));
     } catch (error) {
@@ -68,12 +79,12 @@ export const addTasksThunk =
   };
 
 export const editTasksThunk =
-  (taskData: ITask): any =>
+  (taskId: PatchTaskByIdRequestType, taskData: PatchTaskByIdRequestWithBodyType): any =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoader());
 
-      const response: AxiosResponse<ITask> = await TaskService.editTaskAxios(taskData);
+      const response: AxiosResponse<PatchTaskByIdResponseType> = await TaskService.editTaskAxios(taskId, taskData);
 
       dispatch(editTask(response.data));
     } catch (error) {
@@ -86,14 +97,14 @@ export const editTasksThunk =
   };
 
 export const deleteTasksThunk =
-  (taskId: number): any =>
+  (taskId: DeleteTaskByIdRequestType): any =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoader());
 
-      await TaskService.deleteTaskAxios(taskId);
+      const response: AxiosResponse<DeleteTaskByIdResponseType> = await TaskService.deleteTaskAxios(taskId);
 
-      dispatch(deleteTask(taskId));
+      dispatch(deleteTask(response.data));
     } catch (error) {
       if (error instanceof AxiosError || error instanceof Error) {
         dispatch(setError(error.message));

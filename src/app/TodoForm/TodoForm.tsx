@@ -5,17 +5,16 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from './validationSchema';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import { editCurrentTask } from 'src/redux/taskSlice';
 import TextField from 'components/TextField/TextField';
 import { Checkbox } from 'components/Checkbox';
 import { addTasksThunk, editTasksThunk, getTaskByIdThunk } from 'src/redux/thunks';
-import { ITask } from 'src/types/types';
+import { PatchTaskByIdRequestWithBodyType } from 'src/types/types';
 
 const TodoForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const currentTask = useAppSelector((state) => state.todo.currentTask);
   const navigate = useNavigate();
-  const currentId = Number(useLocation().pathname.split('/').slice(-1)[0]);
+  const currentId = useLocation().pathname.split('/').slice(-1)[0];
 
   const defaultValues = {
     name: '',
@@ -24,20 +23,19 @@ const TodoForm: React.FC = () => {
     isComplited: false,
   };
 
-  const { handleSubmit, control, setValue } = useForm<Omit<ITask, 'id'>>({
+  const { handleSubmit, control, setValue } = useForm<PatchTaskByIdRequestWithBodyType>({
     defaultValues: defaultValues,
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (task: Omit<ITask, 'id'>): void => {
+  const onSubmit = (task: PatchTaskByIdRequestWithBodyType): void => {
     if (currentId) {
       dispatch(
-        editTasksThunk({
+        editTasksThunk(currentId, {
           name: task.name,
           info: task.info,
           isImportant: task.isImportant,
           isCompleted: task.isCompleted,
-          id: currentId,
         })
       );
     } else {
@@ -46,12 +44,10 @@ const TodoForm: React.FC = () => {
           name: task.name,
           info: task.info,
           isImportant: task.isImportant,
-          isCompleted: false,
         })
       );
     }
 
-    dispatch(editCurrentTask(undefined));
     navigate('/');
   };
 

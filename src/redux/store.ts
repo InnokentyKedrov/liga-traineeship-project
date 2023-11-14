@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import thunkMiddleware from 'redux-thunk';
 import logger from 'redux-logger';
-import taskReducer from './taskSlice';
-import loadingReducer from './loadingSlice';
-import errorReducer from './errorSlice';
-import filterReducer from './filterSlice';
+import taskReducer from './slices/taskSlice';
+import loadingReducer from './slices/loadingSlice';
+import errorReducer from './slices/errorSlice';
+import filterReducer from './slices/filterSlice';
 
 // const thunkMiddleware = thunk as unknown as ThunkDispatch<RootStateType, undefined, AnyAction>;
 
