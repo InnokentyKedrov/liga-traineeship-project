@@ -12,7 +12,7 @@ const store = configureStore({
     error: errorReducer,
     filter: filterReducer,
   }),
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export default store;
