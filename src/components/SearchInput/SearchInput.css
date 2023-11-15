@@ -3,15 +3,26 @@
 }
 
 .search-input {
-  width: auto;
   flex-grow: 1;
-  margin-right: 3px;
+  width: 15rem;
+  padding-right: 2rem;
 }
 
 .close {
   position: absolute;
   top: 6px;
   right: 10px;
-  border: none;
+
   background-color: inherit;
+  border: none;
+}
+
+@media (width <= 660px) {
+  .search-input {
+    height: 2rem;
+  }
+
+  .close {
+    top: 4px;
+  }
 }

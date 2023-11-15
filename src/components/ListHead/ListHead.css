@@ -1,0 +1,39 @@
+.todos__head {
+  display: flex;
+  justify-content: space-between;
+
+  width: 19rem;
+  margin: 0 auto;
+
+  color: #fff;
+}
+
+.todos__head_span {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  opacity: 0.5;
+  background-color: var(--main-color);
+}
+
+.todos__head_span-active {
+  cursor: auto;
+  opacity: 1;
+}
+
+.todos__head_todo {
+  padding-right: 3rem;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 2.5rem;
+}
+
+.todos__head_done {
+  padding-left: 3rem;
+  border-top-left-radius: 2.5rem;
+  border-top-right-radius: 0.75rem;
+}
+
+@media (width <= 350px) {
+  .todos__head {
+    width: 17rem;
+  }
+}

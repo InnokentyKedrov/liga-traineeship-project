@@ -1,0 +1,47 @@
+.form-check {
+  padding: 0;
+}
+
+.form-check-input {
+  display: none;
+
+  /* width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 0.4rem; */
+}
+
+.form-check-label {
+  cursor: pointer;
+  user-select: none;
+
+  position: relative;
+
+  display: inline-block;
+
+  margin-right: 0;
+  padding-left: 1.5rem;
+
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+}
+
+.form-check-label::before {
+  content: '';
+
+  position: absolute;
+  left: 0;
+
+  display: inline-block;
+
+  width: 1rem;
+  height: 1rem;
+
+  background-color: var(--body-color);
+}
+
+.form-check-input:checked + .form-check-label::before {
+  content: '✓';
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--second-color);
+}

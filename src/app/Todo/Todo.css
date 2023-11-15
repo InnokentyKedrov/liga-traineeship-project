@@ -1,0 +1,21 @@
+.todos {
+  height: 100%;
+}
+
+.todos__list {
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+
+  list-style-type: none;
+}
+
+@media (width <= 660px) {
+  .todos__list {
+    max-height: calc(100% - 2.5rem);
+  }
+}

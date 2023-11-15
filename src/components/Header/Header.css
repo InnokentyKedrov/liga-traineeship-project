@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 1280px;
+  height: 5rem;
+  margin: 0 auto;
+  padding: 0 5rem;
+
+  background-color: var(--main-color);
+}
+
+.header__form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+@media (width <= 750px) {
+  .header {
+    padding: 0 2rem;
+  }
+}
+
+@media (width <= 660px) {
+  .header {
+    height: 7rem;
+    padding: 0 0.8rem;
+  }
+
+  .header__form {
+    flex-direction: column;
+    gap: 0;
+    justify-content: space-around;
+  }
+}

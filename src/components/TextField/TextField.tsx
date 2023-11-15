@@ -1,8 +1,7 @@
-import React from 'react';
-import { TextFieldProps } from './TextField.types';
-import './TextField.css';
+import { TextFieldProps } from 'src/components/TextField/TextField.types';
+import 'src/components/TextField/TextField.css';
 
-export function TextField({
+const TextField = ({
   label,
   placeholder,
   containerClassName = '',
@@ -10,9 +9,11 @@ export function TextField({
   value,
   onChange,
   errorText,
-}: TextFieldProps) {
+  defaultValue,
+  required,
+}: TextFieldProps) => {
   return (
-    <div className={`mb-3 ${containerClassName}`}>
+    <fieldset className={`mb-3 ${containerClassName}`}>
       <label htmlFor={label} className="form-label">
         {label}
       </label>
@@ -23,8 +24,12 @@ export function TextField({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        defaultValue={defaultValue}
+        required={required}
       />
       {errorText && <div className="invalid">{errorText}</div>}
-    </div>
+    </fieldset>
   );
-}
+};
+
+export default TextField;

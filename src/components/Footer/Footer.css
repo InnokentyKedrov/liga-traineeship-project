@@ -1,0 +1,63 @@
+.footer {
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  max-width: 1280px;
+  height: 5rem;
+  margin: 0 auto;
+  padding: 0 5rem;
+
+  background: var(--main-color);
+}
+
+.footer__link,
+.footer__year {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.footer__link {
+  padding-left: 3rem;
+
+  text-decoration: none;
+
+  background-image: url('../../assets/icons/github.png');
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 2rem 2rem;
+
+  transition: transform 0.4s ease-in-out;
+}
+
+.footer__link:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  color: #fff;
+}
+
+.footer__link:active {
+  transform: scale(1);
+}
+
+.footer__year {
+  margin: 0;
+}
+
+@media (width <= 750px) {
+  .footer {
+    height: 3rem;
+    padding: 0 2rem;
+  }
+
+  .footer__link,
+  .footer__year {
+    font-size: 1rem;
+  }
+
+  .footer__link {
+    background-size: 1rem 1rem;
+  }
+}

@@ -1,0 +1,36 @@
+.form {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 19rem;
+  margin: 0 auto;
+  padding: 1rem;
+
+  color: #fff;
+
+  background-color: var(--third-color);
+  border-radius: 0.75rem;
+}
+
+.form__btn {
+  align-self: center;
+
+  width: 9rem;
+  height: 2.5rem;
+
+  font-size: 1.25rem;
+  color: #fff;
+
+  background-color: rgb(255 255 255 / 50%);
+  border: 1px solid rgb(255 255 255 / 50%);
+  border-radius: 0.5rem;
+
+  transition: all 0.4s ease-in-out;
+}
+
+.form__btn:hover {
+  font-size: 1.5rem;
+  color: var(--second-color);
+  background-color: rgb(255 255 255 / 90%);
+  border-color: rgb(255 255 255 / 90%);
+}

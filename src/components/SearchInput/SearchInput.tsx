@@ -1,21 +1,21 @@
-import React, { ChangeEventHandler, MouseEvent } from 'react';
-import './SearchInput.css';
-import { SearchInputProps } from './SearchInput.types';
+import { MouseEvent } from 'react';
+import { SearchInputProps } from 'src/components/SearchInput/SearchInput.types';
+import 'src/components/SearchInput/SearchInput.css';
 
-export function SearchInput({ onChange, value, onReset }: SearchInputProps) {
-  const onSearchInputChange: ChangeEventHandler<HTMLInputElement> = (evt) => onChange(evt.target.value);
-
+const SearchInput = ({ onChange, value, onReset }: SearchInputProps) => {
   const onResetBtnClick = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     if (onReset) onReset();
   };
 
   return (
-    <div className="search-panel">
-      <input className="form-control search-input" placeholder="search" onChange={onSearchInputChange} value={value} />
+    <fieldset className="search-panel">
+      <input className="form-control search-input" id="search" placeholder="search" onChange={onChange} value={value} />
       <button className="close" onClick={onResetBtnClick}>
         <i className="fa fa-close"></i>
       </button>
-    </div>
+    </fieldset>
   );
-}
+};
+
+export default SearchInput;

@@ -1,0 +1,19 @@
+.notFound {
+  width: 19rem;
+  margin: 0 auto;
+  padding: 2rem;
+
+  text-align: center;
+
+  background-color: var(--third-color);
+  border-radius: 0.5rem;
+}
+
+.notFound__title {
+  color: #fff;
+}
+
+.notFound__404 {
+  font-size: 6rem;
+  color: var(--second-color);
+}
