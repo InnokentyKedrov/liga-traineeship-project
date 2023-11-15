@@ -20,18 +20,12 @@ const getTaskByIdAxios = async (taskId: GetTaskByIdRequestType) => {
 };
 
 const addTaskAxios = async (taskData: PostTaskRequestType) => {
-  const { name, info, isImportant } = taskData;
-  const body = { name, info, isImportant };
-
-  const response = await axios.post(URI_API, body);
+  const response = await axios.post(URI_API, taskData);
   return response;
 };
 
 const editTaskAxios = async (taskId: PatchTaskByIdRequestType, taskData: PatchTaskByIdRequestWithBodyType) => {
-  const { name, info, isImportant, isCompleted } = taskData;
-  const body = { name, info, isImportant, isCompleted };
-
-  const response = await axios.put(`${URI_API}/${taskId}`, body);
+  const response = await axios.patch(`${URI_API}/${taskId}`, taskData);
   return response;
 };
 

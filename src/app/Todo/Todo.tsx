@@ -21,10 +21,6 @@ const Todo: React.FC = () => {
   const [done, setDone] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<boolean>(true);
 
-  const closeError = () => {
-    dispatch(unsetError());
-  };
-
   useEffect(() => {
     switch (filter) {
       case '1':
@@ -76,7 +72,7 @@ const Todo: React.FC = () => {
 
             {done && <ListColumn label={'Done'} isComplited={false} />}
           </ul>
-          {error && <Error closeError={closeError} />}
+          {error && <Error closeError={() => dispatch(unsetError())} />}
         </div>
       )}
     </>

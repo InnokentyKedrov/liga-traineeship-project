@@ -1,5 +1,13 @@
 import { paths } from 'src/types/api';
 
+export interface ITask {
+  name: string;
+  info: string;
+  isImportant: boolean;
+  isCompleted: boolean;
+  id: number;
+}
+
 export type GetTaskByIdRequestType = paths['/tasks/{taskId}']['get']['parameters']['path']['taskId'];
 export type GetTaskByIdResponseType =
   paths['/tasks/{taskId}']['get']['responses']['200']['content']['application/json'];

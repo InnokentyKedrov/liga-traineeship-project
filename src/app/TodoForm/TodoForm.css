@@ -12,11 +12,6 @@
   border-radius: 0.75rem;
 }
 
-.error {
-  display: block;
-  color: #f00;
-}
-
 .form__btn {
   align-self: center;
 

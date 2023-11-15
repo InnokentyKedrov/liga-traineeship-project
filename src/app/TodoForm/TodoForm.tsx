@@ -5,22 +5,25 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from 'src/app/TodoForm/validationSchema';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { addTasksThunk, editTasksThunk, getTaskByIdThunk } from 'src/redux/thunks';
+import { unsetError } from 'src/redux/slices';
 import { PatchTaskByIdRequestWithBodyType } from 'src/types/types';
 import TextField from 'src/components/TextField/TextField';
 import Checkbox from 'src/components/Checkbox/Checkbox';
+import Error from 'src/components/Error/Error';
 import 'src/app/TodoForm/TodoForm.css';
 
 const TodoForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const currentTask = useAppSelector((state) => state.todo.currentTask);
+  const error = useAppSelector((state) => state.error.error);
   const navigate = useNavigate();
   const currentId = useLocation().pathname.split('/').slice(-1)[0];
 
   const defaultValues = {
     name: '',
     info: '',
-    isImported: false,
-    isComplited: false,
+    isImportant: false,
+    isCompleted: false,
   };
 
   const { handleSubmit, control, setValue } = useForm<PatchTaskByIdRequestWithBodyType>({
@@ -29,7 +32,7 @@ const TodoForm: React.FC = () => {
   });
 
   const onSubmit = (task: PatchTaskByIdRequestWithBodyType): void => {
-    if (currentId) {
+    if (currentTask) {
       dispatch(
         editTasksThunk(currentId, {
           name: task.name,
@@ -88,15 +91,13 @@ const TodoForm: React.FC = () => {
         name="name"
         control={control}
         render={({ field, fieldState: { error } }) => (
-          <>
-            <TextField
-              label={'Enter the name of your task'}
-              inputType={'text'}
-              value={field.value}
-              onChange={nameChange}
-            />
-            <div className="error">{error?.message}</div>
-          </>
+          <TextField
+            label={'Enter the name of your task'}
+            inputType={'text'}
+            value={field.value}
+            onChange={nameChange}
+            errorText={error?.message}
+          />
         )}
       />
 
@@ -104,15 +105,13 @@ const TodoForm: React.FC = () => {
         name="info"
         control={control}
         render={({ field, fieldState: { error } }) => (
-          <>
-            <TextField
-              label={'Enter the description of your task'}
-              inputType={'text'}
-              value={field.value}
-              onChange={infoChange}
-            />
-            <div className="error">{error?.message}</div>
-          </>
+          <TextField
+            label={'Enter the description of your task'}
+            inputType={'text'}
+            value={field.value}
+            onChange={infoChange}
+            errorText={error?.message}
+          />
         )}
       />
 
@@ -142,6 +141,8 @@ const TodoForm: React.FC = () => {
       <button type="submit" className="form__btn">
         Submit
       </button>
+
+      {error && <Error closeError={() => dispatch(unsetError())} />}
     </form>
   );
 };
