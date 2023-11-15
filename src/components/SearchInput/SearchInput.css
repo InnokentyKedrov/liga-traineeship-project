@@ -5,6 +5,7 @@
 .search-input {
   flex-grow: 1;
   width: 15rem;
+  padding-right: 2rem;
 }
 
 .close {

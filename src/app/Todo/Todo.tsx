@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import 'src/app/Todo/Todo.css';
 import ListHead from 'src/components/ListHead/ListHead';
 import ListColumn from 'src/components/ListColumn/ListColumn';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
@@ -8,6 +7,7 @@ import MyLoader from 'src/components/MyLoader/MyLoader';
 import { unsetError } from 'src/redux/slices/errorSlice';
 import Error from 'src/components/Error/Error';
 import { addCurrentTask, editCurrentTask } from 'src/redux/slices/taskSlice';
+import 'src/app/Todo/Todo.css';
 
 const Todo: React.FC = () => {
   const isLoading = useAppSelector((state) => state.loading.isLoading);

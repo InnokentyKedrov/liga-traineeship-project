@@ -12,17 +12,6 @@
   background-color: var(--main-color);
 }
 
-.header__link {
-  color: #fff;
-  text-decoration: none;
-  transition: all 0.4s ease-in-out;
-}
-
-.header__link:hover {
-  transform: scale(1.2);
-  color: var(--second-color);
-}
-
 .header__form {
   display: flex;
   gap: 1rem;
@@ -45,19 +34,5 @@
     flex-direction: column;
     gap: 0;
     justify-content: space-around;
-  }
-}
-
-@media (width <= 350px) {
-  .header__logo {
-    overflow: hidden;
-    display: inline-block;
-
-    width: 2rem;
-    height: 3rem;
-    margin: 0;
-
-    font-size: 3rem;
-    line-height: 3rem;
   }
 }

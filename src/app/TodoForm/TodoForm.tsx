@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -54,21 +54,21 @@ const TodoForm: React.FC = () => {
     navigate('/');
   };
 
-  const nameChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const nameChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     setValue('name', event.target.value);
-  };
+  }, []);
 
-  const infoChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const infoChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     setValue('info', event.target.value);
-  };
+  }, []);
 
-  const importantChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const importantChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     setValue('isImportant', event.target.checked);
-  };
+  }, []);
 
-  const complitedChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const complitedChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     setValue('isCompleted', event.target.checked);
-  };
+  }, []);
 
   useEffect(() => {
     if (currentId !== 'todoform') {

@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import SearchInput from 'src/components/SearchInput/SearchInput';
 import Range from 'src/components/Range/Range';
+import Logo from 'components/Header/components/Logo/Logo';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { getAllTasksThunk } from 'src/redux/thunks';
 import { setFilter, setSearch } from 'src/redux/slices/filterSlice';
@@ -60,9 +60,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="header">
-      <Link className="header__link" to={'/'}>
-        <h1 className="header__logo">Doska</h1>
-      </Link>
+      <Logo />
       {!currentTask && !isAddTask && (
         <form className="header__form">
           <Controller
