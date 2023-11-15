@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { addCurrentTask } from 'src/redux/slices/taskSlice';
 import { ITask } from 'src/types';
 import 'src/components/ListColumn/ListColumn.css';
+import Pagination from 'components/Pagination/Pagination';
 
 const ListColumn = ({ label, isComplited }: ListColumnProps) => {
   const tasks = useAppSelector((state) => state.todo.tasks);
@@ -34,6 +35,7 @@ const ListColumn = ({ label, isComplited }: ListColumnProps) => {
           .map((task: ITask) => <Task {...task} key={task.id} />)
           .reverse()}
       </ul>
+      <Pagination />
     </li>
   );
 };
