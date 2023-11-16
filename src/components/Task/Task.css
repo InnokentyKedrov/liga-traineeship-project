@@ -1,7 +1,10 @@
 .task {
-  width: 16rem;
+  width: calc(17rem - 2px);
+  height: 6.5rem;
   padding: 20px;
+
   background-color: var(--third-color);
+  border: 2px solid transparent;
   border-radius: 0.75rem;
 }
 
