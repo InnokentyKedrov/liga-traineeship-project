@@ -36,19 +36,6 @@ const ListColumn = ({ label, isComplited }: ListColumnProps) => {
     setCurrentPage(page);
   };
 
-  const StyledPaginationItem = styled(PaginationItem)(() => ({
-    borderColor: 'var(--second-color)',
-    '&.Mui-selected': {
-      backgroundColor: 'var(--second-color)',
-      '&:hover': {
-        color: '#fff',
-      },
-    },
-    '&:hover': {
-      color: '#fff',
-    },
-  }));
-
   useEffect(() => {
     const handleResizeWindow = () => setDisplayHeight(window.innerHeight);
     window.addEventListener('resize', handleResizeWindow);
@@ -56,6 +43,21 @@ const ListColumn = ({ label, isComplited }: ListColumnProps) => {
       window.removeEventListener('resize', handleResizeWindow);
     };
   });
+
+  const StyledPaginationItem = styled(PaginationItem)(() => ({
+    borderColor: 'var(--second-color)',
+    '&.Mui-selected': {
+      backgroundColor: 'var(--second-color)',
+      '&:hover': {
+        color: 'inherit',
+        backgroundColor: 'var(--second-color)',
+        cursor: 'auto',
+      },
+    },
+    '&:hover': {
+      color: '#fff',
+    },
+  }));
 
   return (
     <li className="todos__item">

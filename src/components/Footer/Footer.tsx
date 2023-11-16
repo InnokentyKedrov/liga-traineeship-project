@@ -1,13 +1,11 @@
-import 'src/components/Footer/Footer.css';
+import { StyledFooter, StyledLink, StyledTypografy } from 'src/components/Footer/Footer.styles';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="footer">
-      <a href="https://github.com/InnokentyKedrov" className="footer__link">
-        Andrey Lavrjonov
-      </a>
-      <p className="footer__year">© 2023</p>
-    </footer>
+    <StyledFooter component="footer">
+      <StyledLink href="https://github.com/InnokentyKedrov">Andrey Lavrjonov</StyledLink>
+      <StyledTypografy>© 2023</StyledTypografy>
+    </StyledFooter>
   );
 };
 
